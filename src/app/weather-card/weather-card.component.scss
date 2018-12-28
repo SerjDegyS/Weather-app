@@ -1,0 +1,30 @@
+section{
+
+}
+
+.weather-card{
+  display: flex;
+  align-items: normal;
+  flex-direction: column;
+}
+
+.weather-card__item{
+  margin: 20px;
+  padding: 5px;
+  width: 25%;
+  font-family: Roboto,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.428571429;
+  color: #333333;
+  background-image: linear-gradient(to top left,#feb020,#ffd05c);
+  border-radius: 6px;
+  box-shadow: 10px -2px 20px 2px rgba(0,0,0,.3);
+  border-bottom: 2px solid #ff4f98;
+}
+
+.weather-card__condition-icon-container{
+  align-content: center;
+  margin: auto;
+  width: 100px;
+}
