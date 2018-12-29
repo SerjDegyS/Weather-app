@@ -29,9 +29,8 @@ export class ForcastWeatherCardComponent implements OnInit {
         console.log('getForcast');
       this.weatherHttp.getForcastWeatherByCityCard(this.weatherCardCity).subscribe(data => {
         this.weatherCardCity.forcast = data;
-        console.log(data);
-        // console.log(this.weatherCardCity.getForcastWeather());
         this.forcastWeather = this.weatherCardCity.getForcastWeather();
+        console.log(this.forcastWeather);
       });
     }
   }

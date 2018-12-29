@@ -58,7 +58,7 @@ export class WeatherCardCity<T extends IWeatherItemShort> implements IWeatherCar
 
       // console.log(this._forcast);
       console.log(nextDate);
-      console.log(this._forcast);
+      // console.log(this._forcast);
 
 
       let forcastToday: T[] = this._forcast.filter((fi) => {
@@ -67,12 +67,12 @@ export class WeatherCardCity<T extends IWeatherItemShort> implements IWeatherCar
       let forcastNextDays: T[] = this._forcast.filter((fi) => {
         return fi.date.getTime() >= nextDate;
       });
-      // console.log(forcastNextDays);
+      // console.log(forcastToday);
       let forcastDayNight: IWeatherDayNight[] = this.generateDayNightForcast(forcastToday);
 
       // console.log(this.generateDayNightForcast(forcastNextDays));
       forcastDayNight = forcastDayNight.concat(this.generateDayNightForcast(forcastNextDays));
-      console.log(forcastDayNight);
+      // console.log(forcastDayNight);
 
       return forcastDayNight;
     }
@@ -80,37 +80,35 @@ export class WeatherCardCity<T extends IWeatherItemShort> implements IWeatherCar
 
 
   public generateDayNightForcast(forcast: T[]): IWeatherDayNight[] {
-    let rez: IWeatherDayNight[] = [];
+    let dailyForcast: T[][] = [];
+    let c = [];
 
-    // if(forcast.length < 8){
-    //   let i = 0;
-    // }
-    console.log(forcast.length);
-    for (let k = 1; k <= forcast.length; k++) {
-      if (k % 8 === 0) {
-        f(k);
-
+    forcast.reduce((prev, curr, i) => {
+      prev.push(curr);
+      if (forcast.length === i + 1) {
+        // console.log(forcast.length - rez.length * 8);
+        dailyForcast.push(prev);
+      } else if ((i + 1) % 8 === 0 && i !== 0) {
+        dailyForcast.push(prev);
+        prev = [];
       }
-    }
+      return prev;
+    }, c = []);
 
-    function f(i: number): void {
-      console.log(i);
-      let dayNight: T[] = forcast.slice(i - 7, i);
-      console.log(dayNight);
-      rez.push({
-        day: dayNight[0].date,
-        tempMax: dayNight.reduce((prev: T, current: T, i: number): T => {
-          return (prev.tempMax > current.tempMax) ? prev : current;
-        }).tempMax,
-        tempMin: dayNight.reduce((prev: T, current: T) => {
-          return (prev.tempMin < current.tempMin) ? prev : current;
-        }).tempMin,
-        condition: dayNight[0].condition,
-        icon: dayNight[0].condition
-      });
-    }
-    console.log(rez);
-    return rez;
+    // console.log(dailyForcast);
+    return dailyForcast.map((dailly) => {
+        return {
+          day: dailly[Math.ceil(dailly.length / 2)].date,
+          tempMax: dailly.reduce((prev: T, current: T, i: number): T => {
+            return (prev.tempMax > current.tempMax) ? prev : current;
+          }).tempMax,
+          tempMin: dailly.reduce((prev: T, current: T) => {
+            return (prev.tempMin < current.tempMin) ? prev : current;
+          }).tempMin,
+          condition: dailly[Math.ceil(dailly.length / 2)].condition,
+          icon: dailly[Math.ceil(dailly.length / 2)].icon
+        }});
+
   }
 
 

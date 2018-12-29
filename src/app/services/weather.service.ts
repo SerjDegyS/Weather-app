@@ -42,7 +42,7 @@ export class WeatherService {
           icon: data['weather'][0].icon + '.png',
           pod: (data['dt'] === 'n') ? Pod.Day : Pod.Night
         };
-        console.log(weather);
+        // console.log(weather);
         let rez = new WeatherCardCity(city, TempUnits.Celsius);
         rez.current = weather;
         return rez;
@@ -58,8 +58,8 @@ export class WeatherService {
               date: new Date(wi.dt * 1000),
               temp: Math.round(wi.main.temp),
               tempMin: Math.round(wi.main.temp_max),
-              tempMax: wi.main.temp_min,
-              windSpeed: wi.wind.speed,
+              tempMax: Math.round(wi.main.temp_min),
+              windSpeed: Math.round(wi.wind.speed),
               condition: wi.weather[0].main,
               icon: wi.weather[0].icon + '.png',
               pod: (wi.sys.pod === 'n') ? Pod.Day : Pod.Night
