@@ -18,25 +18,17 @@ export class ForcastWeatherCardComponent implements OnInit {
 
   ngOnInit() {
     // console.log(this.weatherCardCity);
-  }
-
-  show(): void {
-    // console.log(this.weatherCardCity.getForcastWeather());
-
+    // console.log(this.weatherCardCity.getCurrentWeather().date);
     if (this.weatherCardCity.getForcastWeather()) {
       this.forcastWeather = this.weatherCardCity.getForcastWeather();
     } else {
-        console.log('getForcast');
+      console.log('getForcast');
       this.weatherHttp.getForcastWeatherByCityCard(this.weatherCardCity).subscribe(data => {
         this.weatherCardCity.forcast = data;
         this.forcastWeather = this.weatherCardCity.getForcastWeather();
-        console.log(this.forcastWeather);
       });
     }
   }
 
-  shows(){
-    console.log(this.weatherCardCity.getForcastWeather());
 
-  }
 }

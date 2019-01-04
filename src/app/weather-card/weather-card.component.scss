@@ -24,7 +24,17 @@ section{
 }
 
 .weather-card__condition-icon-container{
-  align-content: center;
-  margin: auto;
-  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-content: space-between;
+  align-items: center;
+  //justify-items: center;
+  //margin: ;
+  flex-direction: column;
+  width: 100%;
 }
+
+.weather-card__condition-icon{
+  width: 200px;
+}
+

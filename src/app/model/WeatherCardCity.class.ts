@@ -12,7 +12,7 @@ export class WeatherCardCity<T extends IWeatherItemShort> implements IWeatherCar
   //   country: string
   // }
   private _current: T;
-  _forcast: T[] = [];
+  private _forcast: T[] = [];
 
   // private tempUnit: TempUnits;
 
@@ -57,7 +57,7 @@ export class WeatherCardCity<T extends IWeatherItemShort> implements IWeatherCar
       nextDate = new Date(nextDate).setHours(0, 0, 0, 0);
 
       // console.log(this._forcast);
-      console.log(nextDate);
+      // console.log(nextDate);
       // console.log(this._forcast);
 
 
@@ -79,7 +79,7 @@ export class WeatherCardCity<T extends IWeatherItemShort> implements IWeatherCar
   }
 
 
-  public generateDayNightForcast(forcast: T[]): IWeatherDayNight[] {
+  private generateDayNightForcast(forcast: T[]): IWeatherDayNight[] {
     let dailyForcast: T[][] = [];
     let c = [];
 
@@ -98,15 +98,15 @@ export class WeatherCardCity<T extends IWeatherItemShort> implements IWeatherCar
     // console.log(dailyForcast);
     return dailyForcast.map((dailly) => {
         return {
-          day: dailly[Math.ceil(dailly.length / 2)].date,
+          day: dailly[Math.floor(dailly.length / 2)].date,
           tempMax: dailly.reduce((prev: T, current: T, i: number): T => {
             return (prev.tempMax > current.tempMax) ? prev : current;
           }).tempMax,
           tempMin: dailly.reduce((prev: T, current: T) => {
             return (prev.tempMin < current.tempMin) ? prev : current;
           }).tempMin,
-          condition: dailly[Math.ceil(dailly.length / 2)].condition,
-          icon: dailly[Math.ceil(dailly.length / 2)].icon
+          condition: dailly[Math.floor(dailly.length / 2)].condition,
+          icon: dailly[Math.floor(dailly.length / 2)].icon
         }});
 
   }

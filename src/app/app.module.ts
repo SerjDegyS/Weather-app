@@ -7,6 +7,13 @@ import { WeatherCardComponent } from './weather-card/weather-card.component';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { ForcastWeatherCardComponent } from './weather-card/forcast-weather-card/forcast-weather-card.component';
+import {RouterModule, Routes} from '@angular/router';
+
+//определение маршрутов
+const appRoutes: Routes = [
+  {path: '', component: WeatherCardComponent},
+  {path: 'forcast', component: ForcastWeatherCardComponent}
+]
 
 @NgModule({
   declarations: [
@@ -18,7 +25,8 @@ import { ForcastWeatherCardComponent } from './weather-card/forcast-weather-card
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes)
 
   ],
   providers: [],
