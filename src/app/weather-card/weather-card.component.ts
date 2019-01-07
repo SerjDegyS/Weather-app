@@ -1,4 +1,4 @@
-import {Component, OnInit, Output} from '@angular/core';
+import {Component, OnInit, Output, Input} from '@angular/core';
 import {Pod, TempUnits} from '../model/Weathers.enum';
 import {WeatherCardCity} from '../model/WeatherCardCity.class';
 import {IWeatherItemShort} from '../model/IWeather-item.interface';
@@ -18,11 +18,13 @@ export class WeatherCardComponent implements OnInit {
   currentWeather: IWeatherItemShort;
   forcast: IWeatherDayNight[];
   showforcast: boolean = false;
-  private city: string = 'kiev';
+  dailyForecast: IWeatherDayNight;
+  private city: string = 'talalayivka';
   private currentPosition: {
     lat: number,
     lng: number,
   };
+
 
   constructor(private weatherHttp: WeatherService) {
   }
@@ -65,7 +67,7 @@ export class WeatherCardComponent implements OnInit {
     // });
   }
 
-  public showForcast() {
-    // this.showForcast() = !this.showForcast();
-  }
+  public receiveDailyForecastFromChild(evnt){
+    this.dailyForecast = evnt;
+    }
 }

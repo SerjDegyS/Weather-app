@@ -1,9 +1,12 @@
 <p>
   5 days weather forecast!
 </p>
+
+
 <section class="forcast-weather-card" [ngSwitch]="true" *ngIf="forcastWeather">
+
   <div class="forcast-weather-card__item" *ngFor="let weather of forcastWeather">
-    <div class="forcast-weather-card__city">
+    <div class="forcast-weather-card__city" (click)="showForecast(weather)">
       <!--{{weatherCardCity.getCity().name}}, {{weatherCardCity.getCity().country}}, {{weatherCardCity.getCity().coord.lat}}</div>-->
 
       <div class="weather-card__condition-icon-container">

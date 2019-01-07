@@ -2,10 +2,10 @@ section{
 
 }
 
-.weather-card{
+.weather-container{
   display: flex;
   align-items: normal;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .weather-card__item{
@@ -28,6 +28,7 @@ section{
   justify-content: center;
   align-content: space-between;
   align-items: center;
+  background-color: white;
   //justify-items: center;
   //margin: ;
   flex-direction: column;
@@ -36,5 +37,100 @@ section{
 
 .weather-card__condition-icon{
   width: 200px;
+}
+
+// forecast weather
+.forecast-weather{
+  display: flex;
+  justify-content:center;
+  margin: 20px;
+  padding: 5px;
+  width: 65%;
+  font-family: Roboto,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.428571429;
+  color: #333333;
+  background-image: linear-gradient(to top left,#feb020,#ffd05c);
+  border-radius: 6px;
+  box-shadow: 10px -2px 20px 2px rgba(0,0,0,.3);
+  border-bottom: 2px solid #ff4f98;
+}
+
+.forecast-weather_container{
+  width: 500px;
+  height: 366px;
+  background-color: #feb020;
+}
+
+// coteiner for forecast
+.wMain{
+  display: flex;
+}
+
+.lSide {
+  display: block;
+  // width: 235px;
+  float: left;
+  margin-right: 4px;
+}
+.lSide{
+  position: relative;
+}
+
+.rSide{
+  font-size: 10px;
+}
+
+.weatherDetails {
+  border-collapse: collapse;
+  width: 420px;
+}
+
+.weatherDetails tr.temperature td {
+  font-size: 15px;
+}
+.weatherDetails td.bR, .weatherDetails thead td {
+  border-right: #dfdfdf 1px solid;
+}
+.weatherDetails td {
+  height: 23px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.calendBlock {
+  width: 100px;
+  text-align: center;
+  padding: 24px 0 0 0px;
+  height: 166px;
+}
+
+.infoDaylight {
+  display: block;
+  width: 100px;
+  border: 1px solid #dfdfdf;
+  border-radius: 3px;
+  color: #777;
+  font-size: 11px;
+  // height: 22px;
+  line-height: 22px;
+  margin: 0 0 0 8px;
+  text-align: center;
+}
+
+.titles {
+  text-align: right;
+  font-size: 11px;
+  color: #777;
+  top: 70px;
+  left: 30px;
+  // width: 130px;
+  position: absolute;
+}
+
+.titles p {
+  padding: 6px 0;
+  
 }
 

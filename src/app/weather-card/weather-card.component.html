@@ -1,11 +1,13 @@
 <p>
   WEATHER CARD!
 </p>
-<section class="weather-card" [ngSwitch]="true" *ngIf="currentWeather" >
+<section class="weather-container" [ngSwitch]="true" *ngIf="currentWeather" >
+
   <div class="weather-card__item" (click)="showforcast = !showforcast">
     <div class="weather-card__city">
         <span>Weather for </span>
-      {{weatherCardCity.getCity().name}}, {{weatherCardCity.getCity().country}}</div>
+      {{weatherCardCity.getCity().name}}, {{weatherCardCity.getCity().country}}
+    </div>
 
     <div class="weather-card__condition-icon-container">
       <img class="weather-card__condition-icon" src="https://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/{{currentWeather.icon}}" alt="Condition icon">
@@ -22,6 +24,176 @@
     </div>
 
   </div>
-</section>
 
-<app-forcast-weather-card *ngIf="showforcast" [weatherCardCity] = "weatherCardCity"></app-forcast-weather-card>
+  <div class="forecast-weather" *ngIf="dailyForecast">
+      <div class="forecast-weather__container">
+          <!-- <span>Weather for </span>
+        {{weatherCardCity.getCity().name}}, {{weatherCardCity.getCity().country}} -->
+      <!-- </div> -->
+
+        <!-- <div class="forecast-weather__condition-icon-container">
+          <img class="forecast-weather__condition-icon" src="https://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/{{dailyForecast.icon}}" alt="Condition icon">
+        </div>
+    
+        <div class="forecast-weather__condition">Condition: {{dailyForecast.condition}}</div>
+    
+        <div class="forecast-weather__temp">Temp: {{dailyForecast.temp}}
+          <span class="forecast-weather__temp-unit">°{{(weatherCardCity.getTempUnit() === 'metric') ? 'C' : 'F'}}</span>
+        </div>
+    
+        <div class="forecast-weather__data">
+          <span>{{(dailyForecast.day.getDay() === weatherCardCity.getCurrentWeather().date.getDay())? "Today, " + dailyForecast.day.toDateString() : dailyForecast.day.toDateString()}}</span>
+        </div> -->
+        <div class="wMain clearfix">
+
+          <div class="lSide">
+              <div class="calendBlock">
+                      <p class="infoDayweek">Понедельник</p>
+                      <p class="infoDate">07</p>
+                      <p class="infoMonth">января</p>
+              </div>
+              <div class="infoDaylight">
+                  <div>Восход <span>07:50</span></div>
+                  <div>Закат <span>16:04</span></div>
+              </div>
+              <div class="titles">
+                  <p>Температура, °C</p>
+                  <p>Давление, мм</p>
+                  <p>Влажность, %</p>
+                  <p>Ветер, м/сек</p>      
+              </div>
+          </div>
+
+          <div class="rSide">
+              <table class="weatherDetails">
+                  <thead>
+                    <tr>
+                        <td class="" colspan="2">ночь</td>
+                        <td class="" colspan="2">утро</td>
+                        <td class="" colspan="2">день</td>
+                        <td class="noB" colspan="2">вечер</td>                  
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="gray time">
+                        <td class="p1  ">2                            :00</td>
+                        <td class="p2 bR ">5                            :00</td>
+                        <td class="p3  ">8                            :00</td>
+                        <td class="p4 bR ">11                            :00</td>
+                        <td class="p5  ">14                            :00</td>
+                        <td class="p6 bR ">17                            :00</td>
+                        <td class="p7  ">20                            :00</td>
+                        <td class="p8  ">23                            :00</td>
+                    </tr>
+                    <tr class="img weatherIcoS">
+                        <td class="p1  ">
+                            <div class="weatherIco n200" title="Переменная облачность"><img class="weatherImg" src="//sinst.fwdcdn.com/img/weatherImg/s/n200.gif" alt=""></div>
+                        </td>
+                        <td class="p2 bR ">
+                            <div class="weatherIco n100" title="Небольшая облачность"><img class="weatherImg" src="//sinst.fwdcdn.com/img/weatherImg/s/n100.gif" alt=""></div>
+                        </td>
+                        <td class="p3  ">
+                            <div class="weatherIco d000" title="Ясно"><img class="weatherImg" src="//sinst.fwdcdn.com/img/weatherImg/s/d000.gif" alt=""></div>
+                        </td>
+                        <td class="p4 bR ">
+                            <div class="weatherIco d400" title="Сплошная облачность"><img class="weatherImg" src="//sinst.fwdcdn.com/img/weatherImg/s/d400.gif" alt=""></div>
+                        </td>
+                        <td class="p5  ">
+                            <div class="weatherIco d400" title="Сплошная облачность"><img class="weatherImg" src="//sinst.fwdcdn.com/img/weatherImg/s/d400.gif" alt=""></div>
+                        </td>
+                        <td class="p6 bR ">
+                            <div class="weatherIco n400" title="Сплошная облачность"><img class="weatherImg" src="//sinst.fwdcdn.com/img/weatherImg/s/n400.gif" alt=""></div>
+                        </td>
+                        <td class="p7  ">
+                                  <div class="weatherIco n400" title="Сплошная облачность"><img class="weatherImg" src="//sinst.fwdcdn.com/img/weatherImg/s/n400.gif" alt=""></div>
+                              </td>
+                                                      <td class="p8  ">
+                                  <div class="weatherIco n400" title="Сплошная облачность"><img class="weatherImg" src="//sinst.fwdcdn.com/img/weatherImg/s/n400.gif" alt=""></div>
+                              </td>
+                                          </tr>
+                  <tr class="temperature">
+                                              <td class="p1  ">-7°</td>
+                                                      <td class="p2 bR ">-8°</td>
+                                                      <td class="p3  ">-10°</td>
+                                                      <td class="p4 bR ">-9°</td>
+                                                      <td class="p5  ">-9°</td>
+                                                      <td class="p6 bR ">-10°</td>
+                                                      <td class="p7  ">-11°</td>
+                                                      <td class="p8  ">-12°</td>
+                                          </tr>
+                                  <tr class="temperatureSens">
+                                                      <td class="p1  ">-12°</td>
+                                                              <td class="p2 bR ">-14°</td>
+                                                              <td class="p3  ">-16°</td>
+                                                              <td class="p4 bR ">-16°</td>
+                                                              <td class="p5  ">-15°</td>
+                                                              <td class="p6 bR ">-15°</td>
+                                                              <td class="p7  ">-15°</td>
+                                                              <td class="p8  ">-17°</td>
+                                                  </tr>
+                              <tr class="gray">
+                                              <td class="p1  ">755</td>
+                                                      <td class="p2 bR ">755</td>
+                                                      <td class="p3  ">756</td>
+                                                      <td class="p4 bR ">758</td>
+                                                      <td class="p5  ">758</td>
+                                                      <td class="p6 bR ">758</td>
+                                                      <td class="p7  ">758</td>
+                                                      <td class="p8  ">758</td>
+                                          </tr>
+                  <tr>
+                                              <td class="p1  ">89</td>
+                                                      <td class="p2 bR ">88</td>
+                                                      <td class="p3  ">87</td>
+                                                      <td class="p4 bR ">93</td>
+                                                      <td class="p5  ">91</td>
+                                                      <td class="p6 bR ">91</td>
+                                                      <td class="p7  ">89</td>
+                                                      <td class="p8  ">90</td>
+                                          </tr>
+                  <tr class="gray">
+                                              <td class="p1  ">
+                                  <div data-tooltip="Северо-восточный, 3.7 м/с " class="Tooltip wind wind-NE">3.7</div>
+                              </td>
+                                                      <td class="p2 bR ">
+                                  <div data-tooltip="Северо-восточный, 4.3 м/с " class="Tooltip wind wind-NE">4.3</div>
+                              </td>
+                                                      <td class="p3  ">
+                                  <div data-tooltip="Северо-восточный, 4.3 м/с " class="Tooltip wind wind-NE">4.3</div>
+                              </td>
+                                                      <td class="p4 bR ">
+                                  <div data-tooltip="Северо-восточный, 4.3 м/с " class="Tooltip wind wind-NE">4.3</div>
+                              </td>
+                                                      <td class="p5  ">
+                                  <div data-tooltip="Северо-восточный, 3.5 м/с " class="Tooltip wind wind-NE">3.5</div>
+                              </td>
+                                                      <td class="p6 bR ">
+                                  <div data-tooltip="Северо-восточный, 3.1 м/с " class="Tooltip wind wind-NE">3.1</div>
+                              </td>
+                                                      <td class="p7  ">
+                                  <div data-tooltip="Северо-восточный, 2.3 м/с " class="Tooltip wind wind-NE">2.3</div>
+                              </td>
+                                                      <td class="p8  ">
+                                  <div data-tooltip="Северный, 2.3 м/с " class="Tooltip wind wind-N">2.3</div>
+                              </td>
+                                          </tr>
+                                  <tr>
+                                                      <td class="p1  ">11</td>
+                                                              <td class="p2 bR ">6</td>
+                                                              <td class="p3  ">4</td>
+                                                              <td class="p4 bR ">2</td>
+                                                              <td class="p5  ">3</td>
+                                                              <td class="p6 bR ">4</td>
+                                                              <td class="p7  ">5</td>
+                                                              <td class="p8  ">6</td>
+                                                  </tr>
+                              </tbody>
+              </table>
+          </div>
+      </div>
+      </div>
+  </div>
+</section>>
+
+
+<app-forcast-weather-card *ngIf="showforcast" [weatherCardCity] = "weatherCardCity" (dailyForecast)="receiveDailyForecastFromChild($event)"></app-forcast-weather-card>
