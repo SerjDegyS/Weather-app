@@ -1,18 +1,19 @@
 import {TempUnits} from './Weathers.enum';
 import {IWeatherCardCity, IWeatherDayNight} from './IWeatherCity.interface';
-import {IWeatherItemShort} from './IWeather-item.interface';
+import {IWeatherItemForecast, IWeatherItemCurrent} from './IWeather-item.interface';
 import {generate} from 'rxjs';
 
 
-export class WeatherCardCity<T extends IWeatherItemShort> implements IWeatherCardCity<T> {
+
+export class WeatherCardCity< T extends IWeatherItemCurrent , E extends IWeatherItemForecast> implements IWeatherCardCity< T, E> {
 
   // private city: {
   //   id: number,
   //   name: string,
   //   country: string
   // }
-  private _current: T;
-  private _forcast: T[] = [];
+  _current: T;
+  _forecast: E[] = [];
 
   // private tempUnit: TempUnits;
 
@@ -28,11 +29,11 @@ export class WeatherCardCity<T extends IWeatherItemShort> implements IWeatherCar
               private tempUnit: TempUnits) {
   }
 
-  set forcast(value: T[]) {
-    this._forcast = value;
+  set forecast(value) {
+    this._forecast = value;
   }
 
-  set current(value: T) {
+  set current(value) {
     this._current = value;
   }
 
@@ -46,7 +47,7 @@ export class WeatherCardCity<T extends IWeatherItemShort> implements IWeatherCar
 
   getForcastWeather(): IWeatherDayNight[] {
     // console.log(this._forcast);
-    if (this._forcast.length === 0) {
+    if (this._forecast.length === 0) {
       console.log('return NULL');
       return null;
     } else {
@@ -59,12 +60,10 @@ export class WeatherCardCity<T extends IWeatherItemShort> implements IWeatherCar
       // console.log(this._forcast);
       // console.log(nextDate);
       // console.log(this._forcast);
-
-
-      let forcastToday: T[] = this._forcast.filter((fi) => {
+      let forcastToday: E[] = this._forecast.filter((fi) => {
         return fi.date.getTime() < nextDate;
       });
-      let forcastNextDays: T[] = this._forcast.filter((fi) => {
+      let forcastNextDays = this._forecast.filter((fi) => {
         return fi.date.getTime() >= nextDate;
       });
       // console.log(forcastToday);
@@ -79,8 +78,8 @@ export class WeatherCardCity<T extends IWeatherItemShort> implements IWeatherCar
   }
 
 
-  private generateDayNightForcast(forcast: T[]): IWeatherDayNight[] {
-    let dailyForcast: T[][] = [];
+  private generateDayNightForcast(forcast: E[]): IWeatherDayNight[] {
+    let dailyForcast: E[][] = [];
     let c = [];
 
     forcast.reduce((prev, curr, i) => {
@@ -99,14 +98,15 @@ export class WeatherCardCity<T extends IWeatherItemShort> implements IWeatherCar
     return dailyForcast.map((dailly) => {
         return {
           day: dailly[Math.floor(dailly.length / 2)].date,
-          tempMax: dailly.reduce((prev: T, current: T, i: number): T => {
+          tempMax: dailly.reduce((prev: E, current: E, i: number): E => {
             return (prev.tempMax > current.tempMax) ? prev : current;
           }).tempMax,
-          tempMin: dailly.reduce((prev: T, current: T) => {
+          tempMin: dailly.reduce((prev: E, current: E) => {
             return (prev.tempMin < current.tempMin) ? prev : current;
           }).tempMin,
           condition: dailly[Math.floor(dailly.length / 2)].condition,
-          icon: dailly[Math.floor(dailly.length / 2)].icon
+          icon: dailly[Math.floor(dailly.length / 2)].icon,
+          fullWeatherDayNight: dailly
         }});
 
   }

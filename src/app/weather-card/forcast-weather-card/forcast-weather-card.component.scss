@@ -1,11 +1,17 @@
 .forcast-weather-card{
   display: flex;
+
+}
+
+.forcast-weather-card__city{
+  display: flex;
+  flex-direction: column;
 }
 
 .forcast-weather-card__item{
   margin: 10px;
   padding: 5px;
-  width: 25%;
+  width: 11em;
   font-family: Roboto,Arial,sans-serif;
   font-size: 16px;
   font-weight: 600;
@@ -85,5 +91,16 @@
 
 .weather-card__temp-unit{
   //width: 100px;
+}
+
+.forcast-weather-card__date-container{
+  display: flex;
+  justify-content: space-around;
+  justify-items: center;
+}
+
+.weather-card__condition{
+  justify-self: center;
+  align-self: center;
 }
 

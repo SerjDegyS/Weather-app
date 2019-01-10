@@ -1,23 +1,24 @@
 import {Pod, TempUnits} from './Weathers.enum';
 
-export interface IWeatherItemShort {
+export interface IWeatherItemForecast {
   date: Date;
   temp: number;
   tempMin: number;
   tempMax: number;
+  pressure: number;
+  humidity: number;
   windSpeed: number;
   condition: string;
+  description: string;
   icon: string;
   pod: Pod;
 }
 
 
-export interface IWeatherItemFull extends IWeatherItemShort {
-
-  pressure: number;
-  humidity: number;
+export interface IWeatherItemCurrent extends IWeatherItemForecast {
+  sunrise: Date;
+  sunset: Date;
   seaLevel?: number;
   grndLevel?: number;
-  description: string;
 }
 

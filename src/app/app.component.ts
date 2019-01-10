@@ -27,7 +27,7 @@ export class AppComponent implements OnInit{
     $(document).mouseup(function (e) {
       const userMenu = $('.user');
       const userMenuContent = $('.user-menu__content');
-      console.log(e);
+      // console.log(e);
       if (userMenu.is(e.target) && !userMenuContent.hasClass('user-menu__opened')
         || $('.user-menu__content').has(e.target).length !== 0) {
         console.log(e);

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
-import {IWeatherItemShort} from '../../model/IWeather-item.interface';
+import {IWeatherItemCurrent, IWeatherItemForecast} from '../../model/IWeather-item.interface';
 import {IWeatherDayNight} from '../../model/IWeatherCity.interface';
 import {WeatherCardCity} from '../../model/WeatherCardCity.class';
 import {WeatherService} from '../../services/weather.service';
@@ -10,7 +10,7 @@ import {WeatherService} from '../../services/weather.service';
   styleUrls: ['./forcast-weather-card.component.scss']
 })
 export class ForcastWeatherCardComponent implements OnInit {
-  @Input() weatherCardCity: WeatherCardCity<IWeatherItemShort>;
+  @Input() weatherCardCity: WeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>;
   @Output() dailyForecast = new EventEmitter();
   forcastWeather: IWeatherDayNight[];
 
@@ -22,22 +22,25 @@ export class ForcastWeatherCardComponent implements OnInit {
     // console.log(this.weatherCardCity);
     // console.log(this.weatherCardCity.getCurrentWeather().date);
     if (this.weatherCardCity.getForcastWeather()) {
-      this.forcastWeather = this.weatherCardCity.getForcastWeather();
-      this.dailyForecast.emit(this.forcastWeather[0]);
+      this.setForecastToComponent();
     } else {
       console.log('getForcast');
       this.weatherHttp.getForcastWeatherByCityCard(this.weatherCardCity).subscribe(data => {
-        this.weatherCardCity.forcast = data;
-        this.forcastWeather = this.weatherCardCity.getForcastWeather();
-        this.dailyForecast.emit(this.forcastWeather[0]);
+        this.weatherCardCity = data;
+        // console.log(this.weatherCardCity);
+        this.setForecastToComponent();
       });
     }
-
-    
   }
-public showForecast(weather){
-  this.dailyForecast.emit(weather);
-  console.log(weather);
-  
-}
+
+  public showForecast(weather) {
+    this.dailyForecast.emit(weather.fullWeatherDayNight);
+    console.log(weather);
+  }
+
+  private setForecastToComponent(){
+    this.forcastWeather = this.weatherCardCity.getForcastWeather();
+    console.log(this.forcastWeather[0].fullWeatherDayNight);
+    this.dailyForecast.emit(this.forcastWeather[0].fullWeatherDayNight);
+  }
 }

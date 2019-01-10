@@ -8,6 +8,13 @@ import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { ForcastWeatherCardComponent } from './weather-card/forcast-weather-card/forcast-weather-card.component';
 import {RouterModule, Routes} from '@angular/router';
+import { AngularFireModule} from 'angularfire2';
+import {AngularFirestoreModule} from 'angularfire2/firestore';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import {environment} from '../environments/environment';
+
+
 
 //определение маршрутов
 const appRoutes: Routes = [
@@ -27,6 +34,10 @@ const appRoutes: Routes = [
     AppRoutingModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
+    // AngularFireModule.initializeApp(environment.firebase, 'WeatherByDegys'),
+    // AngularFirestoreModule,
+    // AngularFireStorageModule,
+    // AngularFireAuthModule
 
   ],
   providers: [],

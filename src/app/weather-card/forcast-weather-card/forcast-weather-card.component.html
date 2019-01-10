@@ -8,11 +8,17 @@
   <div class="forcast-weather-card__item" *ngFor="let weather of forcastWeather">
     <div class="forcast-weather-card__city" (click)="showForecast(weather)">
       <!--{{weatherCardCity.getCity().name}}, {{weatherCardCity.getCity().country}}, {{weatherCardCity.getCity().coord.lat}}</div>-->
+<div class="forcast-weather-card__date-container">
+      <span>{{((weather.day.getDay() === weatherCardCity.getCurrentWeather().date.getDay())? "Today, " + weather.day.toDateString().slice(0,4) : weather.day.toDateString().slice(0,3))}} </span>
+      <span>{{weather.day | date: 'dd/MM'}}</span>
+</div>
 
       <div class="weather-card__condition-icon-container">
         <img src="https://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/{{weather.icon}}"
              alt="Condition icon" class="condition-icon__img">
       </div>
+
+      <div class="weather-card__condition">{{weather.condition}}</div>
 
       <section class="min-max__container">
 
@@ -38,9 +44,8 @@
 
       </section>
 
-      <div class="weather-card__condition">Condition: {{weather.condition}}</div>
 
-      <span>{{(weather.day.getDay() === weatherCardCity.getCurrentWeather().date.getDay())? "Today, " + weather.day.toDateString() : weather.day.toDateString()}} </span>
+      <!--<span>{{(weather.day.getDay() === weatherCardCity.getCurrentWeather().date.getDay())? "Today, " + weather.day.toDateString() : weather.day.toDateString()}} </span>-->
 
     </div>
   </div>

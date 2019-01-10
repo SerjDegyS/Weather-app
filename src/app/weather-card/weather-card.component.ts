@@ -1,7 +1,7 @@
 import {Component, OnInit, Output, Input} from '@angular/core';
 import {Pod, TempUnits} from '../model/Weathers.enum';
 import {WeatherCardCity} from '../model/WeatherCardCity.class';
-import {IWeatherItemShort} from '../model/IWeather-item.interface';
+import {IWeatherItemCurrent, IWeatherItemForecast} from '../model/IWeather-item.interface';
 
 import {WeatherService} from '../services/weather.service';
 import {IWeatherDayNight} from '../model/IWeatherCity.interface';
@@ -14,11 +14,11 @@ import {IWeatherDayNight} from '../model/IWeatherCity.interface';
 })
 export class WeatherCardComponent implements OnInit {
 
-  weatherCardCity: WeatherCardCity<IWeatherItemShort>;
-  currentWeather: IWeatherItemShort;
+  weatherCardCity: WeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>;
+  currentWeather: IWeatherItemCurrent;
   forcast: IWeatherDayNight[];
   showforcast: boolean = false;
-  dailyForecast: IWeatherDayNight;
+  dailyForecast: IWeatherItemForecast[];
   private city: string = 'talalayivka';
   private currentPosition: {
     lat: number,
@@ -42,6 +42,7 @@ export class WeatherCardComponent implements OnInit {
             console.log(data);
             this.weatherCardCity = data;
             this.currentWeather = this.weatherCardCity.getCurrentWeather();
+            this.city = this.weatherCardCity.getCity().name;
           });
         },
         error => {
@@ -57,14 +58,16 @@ export class WeatherCardComponent implements OnInit {
         this.currentWeather = this.weatherCardCity.getCurrentWeather();
       })
     }
-    // this.weatherHttp.getCurrentWeatherCardByCity(this.city).subscribe((data) => {
-    //   // console.log(data);
-    //   this.weatherCardCity = data;
-    //   this.currentWeather = this.weatherCardCity.getCurrentWeather();
-    //   // this.currentWeather = this.weatherCardCity.getCurrentWeather();
-    //   console.log(this.weatherCardCity);
-    //   // }
-    // });
+    console.log(this.dailyForecast);
+  }
+
+  public searchCityWeatherCard(){
+    this.showforcast = false;
+    console.log('SEARCH!!!')
+    this.weatherHttp.getCurrentWeatherCardByCity(this.city).subscribe(data =>{
+      this.weatherCardCity = data;
+      this.currentWeather = this.weatherCardCity.getCurrentWeather();
+    })
   }
 
   public receiveDailyForecastFromChild(evnt){

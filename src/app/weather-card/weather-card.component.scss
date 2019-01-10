@@ -1,16 +1,36 @@
-section{
+app-weather-card{
+  display: flex;
+}
 
+.search-city{
+  margin: 1em 5em 1em 5em;
+  justify-content: center;
+  align-items: center;
+  //width: 100px;
+}
+
+.search-city__input{
+  margin: 1em;
+  padding: 2px;
+  font-size: large;
+  text-transform: uppercase;
 }
 
 .weather-container{
   display: flex;
-  align-items: normal;
+  align-items: center;
   flex-direction: row;
 }
 
 .weather-card__item{
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+
+  //align-content: center;
+  align-items: center;
   margin: 20px;
-  padding: 5px;
+  padding: 10px;
   width: 25%;
   font-family: Roboto,Arial,sans-serif;
   font-size: 16px;
@@ -23,14 +43,16 @@ section{
   border-bottom: 2px solid #ff4f98;
 }
 
+.weather-card__item > div{
+  margin: 5px;
+}
+
 .weather-card__condition-icon-container{
   display: flex;
   justify-content: center;
-  align-content: space-between;
-  align-items: center;
   background-color: white;
   //justify-items: center;
-  //margin: ;
+  margin: 7px;
   flex-direction: column;
   width: 100%;
 }
@@ -42,10 +64,11 @@ section{
 // forecast weather
 .forecast-weather{
   display: flex;
-  justify-content:center;
+  justify-content: center;
+  position: relative;
   margin: 20px;
   padding: 5px;
-  width: 65%;
+  width: 40em;
   font-family: Roboto,Arial,sans-serif;
   font-size: 16px;
   font-weight: 600;
@@ -57,44 +80,56 @@ section{
   border-bottom: 2px solid #ff4f98;
 }
 
-.forecast-weather_container{
-  width: 500px;
+// coteiner for forecast
+.forecast-weather__container{
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   height: 366px;
-  background-color: #feb020;
+  //background-color: #feb020;
 }
 
-// coteiner for forecast
-.wMain{
-  display: flex;
-}
+//.wMain{
+//  display: flex;
+//  justify-content: space-around;
+//}
 
 .lSide {
+  position: relative;
   display: block;
-  // width: 235px;
+  font-size: 2em;
+  width: 20%;
   float: left;
   margin-right: 4px;
 }
-.lSide{
-  position: relative;
+
+.weatherIcoCurrent img{
+  width: 3em;
 }
 
 .rSide{
-  font-size: 10px;
+  display: flex;
+  flex-direction: row;
+  font-size: 15px;
 }
 
 .weatherDetails {
   border-collapse: collapse;
-  width: 420px;
+  width: 100%;
 }
 
 .weatherDetails tr.temperature td {
   font-size: 15px;
 }
-.weatherDetails td.bR, .weatherDetails thead td {
+.weatherDetails td.bR{
   border-right: #dfdfdf 1px solid;
 }
 .weatherDetails td {
-  height: 23px;
+  font-size: .7em;
+  height: 35px;
+  width: 50px;
   text-align: center;
   vertical-align: middle;
 }
@@ -102,8 +137,8 @@ section{
 .calendBlock {
   width: 100px;
   text-align: center;
-  padding: 24px 0 0 0px;
-  height: 166px;
+  padding: 0px 0 0 0px;
+  //height: 166px;
 }
 
 .infoDaylight {
@@ -120,17 +155,31 @@ section{
 }
 
 .titles {
-  text-align: right;
   font-size: 11px;
   color: #777;
-  top: 70px;
-  left: 30px;
+  //top: 75px;
+  //left: 120px;
+  margin-top: 45px;
+  padding: .3em;
   // width: 130px;
-  position: absolute;
+  //position: absolute;
 }
 
 .titles p {
-  padding: 6px 0;
-  
+  padding: 0px 0;
+  text-align: right;
+
+}
+
+.weatherImg{
+  width: 80%;
+}
+
+.display-none{
+  display: none;
+}
+
+.show{
+  //display: flex;
 }
 
