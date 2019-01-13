@@ -19,7 +19,7 @@ export class WeatherCardComponent implements OnInit {
   forcast: IWeatherDayNight[];
   showforcast: boolean = false;
   dailyForecast: IWeatherItemForecast[];
-  private city: string = 'talalayivka';
+  city: string = 'kiev';
   private currentPosition: {
     lat: number,
     lng: number,
