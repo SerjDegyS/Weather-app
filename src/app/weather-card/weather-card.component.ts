@@ -67,6 +67,7 @@ export class WeatherCardComponent implements OnInit {
     this.weatherHttp.getCurrentWeatherCardByCity(this.city).subscribe(data =>{
       this.weatherCardCity = data;
       this.currentWeather = this.weatherCardCity.getCurrentWeather();
+      console.log(this.weatherCardCity);
     })
   }
 

@@ -7,6 +7,7 @@ import {WeatherCardCity} from '../model/WeatherCardCity.class';
 import {IWeatherItemCurrent, IWeatherItemForecast} from '../model/IWeather-item.interface';
 import {nextContext} from '@angular/core/src/render3';
 import {IWeatherDayNight} from '../model/IWeatherCity.interface';
+import {UrlsConst} from './urls.const';
 
 
 @Injectable({
@@ -20,15 +21,27 @@ export class WeatherService {
   }
 
   getCurrentWeatherCardByCity(city: string): Observable<WeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>> {
-  return this.weatherCardBuild(this.http.get(`https://api.openweathermap.org/data/2.5/weather?q=${city.toLowerCase()}&units=metric&APPID=d7068ea79439a1c4e4435f942b417139`));
+  return this.weatherCardBuild(this.http.get(UrlsConst.weatherByCityName(city)));
   }
 
   getCurrentWeatherCardByPosition(position: {lat: number, lng: number}): Observable<WeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>> {
-    return this.weatherCardBuild(this.http.get(`https://api.openweathermap.org/data/2.5/weather?lat=${position.lat}&lon=${position.lng}&units=metric&APPID=d7068ea79439a1c4e4435f942b417139`));
+    return this.weatherCardBuild(this.http.get(UrlsConst.weatherByPosition(position.lat.toString(), position.lng.toString())));
   }
 
+  getCurrentWeatherByCitesGroup(groupId: string): Observable<any> {
+    return new Observable(obs => this.http.get(UrlsConst.weatherByAllCitesId(groupId))
+      .pipe(map(data => data['list'])).subscribe((data) => {
+        data.map(city => {
+          this.weatherCardBuild(new Observable(ob => ob.next(city)))});
+        obs.next(data);
+      }));
+  }
+
+
+
+
   getForcastWeatherByCityCard(cityCard: WeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>): Observable<WeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>> {
-    return new Observable( obs => this.http.get(`https://api.openweathermap.org/data/2.5/forecast?id=${cityCard.getCity().id}&units=metric&APPID=d7068ea79439a1c4e4435f942b417139`)
+    return new Observable( obs => this.http.get(UrlsConst.forecastByCityId(cityCard.getCity().id.toString()))
       .pipe( map(data => data['list']
           .map((wi): IWeatherItemForecast => {
             return {
@@ -80,10 +93,11 @@ export class WeatherService {
         icon: data['weather'][0].icon + '.png',
         pod: (data['dt'] === 'n') ? Pod.Day : Pod.Night
       };
-      // console.log(weather);
       let rez = new WeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>(city, TempUnits.Celsius);
+      // console.log(rez);
       rez.current = weather;
       return rez;
     }));
   }
+
 }

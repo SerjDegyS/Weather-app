@@ -13,26 +13,32 @@ import {AngularFirestoreModule} from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import {environment} from '../environments/environment';
+import {FavoritesComponent} from './favorites/favorites/favorites.component';
+import {FavoritesModule} from './favorites/favorites.module';
+import {WeatherCardModule} from './weather-card/weather-card.module';
+import {WeatherService} from './services/weather.service';
+import {UserService} from './services/user.service';
 
 
 
 //определение маршрутов
 const appRoutes: Routes = [
   {path: '', component: WeatherCardComponent},
-  {path: 'forcast', component: ForcastWeatherCardComponent}
+  {path: 'forecast', component: ForcastWeatherCardComponent},
+  {path: 'favorites', component: FavoritesComponent}
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
-    WeatherCardComponent,
-    ForcastWeatherCardComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    WeatherCardModule,
+    FavoritesModule,
     RouterModule.forRoot(appRoutes)
     // AngularFireModule.initializeApp(environment.firebase, 'WeatherByDegys'),
     // AngularFirestoreModule,
@@ -40,7 +46,7 @@ const appRoutes: Routes = [
     // AngularFireAuthModule
 
   ],
-  providers: [],
+  providers: [WeatherService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
