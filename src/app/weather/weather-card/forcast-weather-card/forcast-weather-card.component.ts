@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {IWeatherItemCurrent, IWeatherItemForecast} from '../../model/IWeather-item.interface';
-import {IWeatherDayNight} from '../../model/IWeatherCity.interface';
+import {IWeatherCardCity, IWeatherDayNight} from '../../model/IWeatherCity.interface';
 import {WeatherCardCity} from '../../model/WeatherCardCity.class';
 import {WeatherService} from '../../services/weather.service';
 
@@ -10,7 +10,7 @@ import {WeatherService} from '../../services/weather.service';
   styleUrls: ['./forcast-weather-card.component.scss']
 })
 export class ForcastWeatherCardComponent implements OnInit {
-  @Input() weatherCardCity: WeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>;
+  @Input() weatherCardCity: IWeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>;
   @Output() dailyForecast = new EventEmitter();
   forcastWeather: IWeatherDayNight[];
 
@@ -32,7 +32,7 @@ export class ForcastWeatherCardComponent implements OnInit {
       });
     }
   }
-
+/*Sent to card.component forecast weather by current day*/
   public showForecast(weather) {
     this.dailyForecast.emit(weather.fullWeatherDayNight);
     console.log(weather);
@@ -40,7 +40,7 @@ export class ForcastWeatherCardComponent implements OnInit {
 
   private setForecastToComponent(){
     this.forcastWeather = this.weatherCardCity.getForcastWeather();
-    console.log(this.forcastWeather[0].fullWeatherDayNight);
+    console.log(this.forcastWeather);
     this.dailyForecast.emit(this.forcastWeather[0].fullWeatherDayNight);
   }
 }

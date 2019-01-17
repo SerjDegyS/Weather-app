@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { WeatherHttp} from '../services/weather.service';
+import { WeatherHttp} from './weather.service';
 
 describe('Weather.ServiceService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

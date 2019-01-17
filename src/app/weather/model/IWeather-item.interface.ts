@@ -18,6 +18,7 @@ export interface IWeatherItemForecast {
 export interface IWeatherItemCurrent extends IWeatherItemForecast {
   sunrise: Date;
   sunset: Date;
+  windDeg: number;
   seaLevel?: number;
   grndLevel?: number;
 }

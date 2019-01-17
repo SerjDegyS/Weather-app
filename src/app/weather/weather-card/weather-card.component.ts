@@ -4,7 +4,7 @@ import {WeatherCardCity} from '../model/WeatherCardCity.class';
 import {IWeatherItemCurrent, IWeatherItemForecast} from '../model/IWeather-item.interface';
 
 import {WeatherService} from '../services/weather.service';
-import {IWeatherDayNight} from '../model/IWeatherCity.interface';
+import {IWeatherCardCity, IWeatherDayNight} from '../model/IWeatherCity.interface';
 
 @Component({
   selector: 'app-weather-card',
@@ -14,7 +14,7 @@ import {IWeatherDayNight} from '../model/IWeatherCity.interface';
 })
 export class WeatherCardComponent implements OnInit {
 
-  weatherCardCity: WeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>;
+  weatherCardCity: IWeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>;
   currentWeather: IWeatherItemCurrent;
   forcast: IWeatherDayNight[];
   showforcast: boolean = false;
@@ -74,4 +74,8 @@ export class WeatherCardComponent implements OnInit {
   public receiveDailyForecastFromChild(evnt){
     this.dailyForecast = evnt;
     }
+
+  public render(){
+    return console.log('RENDER');
+  }
 }

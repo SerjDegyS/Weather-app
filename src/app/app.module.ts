@@ -3,30 +3,26 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { WeatherCardComponent } from './weather-card/weather-card.component';
+import { WeatherCardComponent } from './weather/weather-card/weather-card.component';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import { ForcastWeatherCardComponent } from './weather-card/forcast-weather-card/forcast-weather-card.component';
+import { ForcastWeatherCardComponent } from './weather/weather-card/forcast-weather-card/forcast-weather-card.component';
 import {RouterModule, Routes} from '@angular/router';
-import { AngularFireModule} from 'angularfire2';
-import {AngularFirestoreModule} from 'angularfire2/firestore';
-import { AngularFireStorageModule } from 'angularfire2/storage';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireModule} from '@angular/fire';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import {environment} from '../environments/environment';
-import {FavoritesComponent} from './favorites/favorites/favorites.component';
-import {FavoritesModule} from './favorites/favorites.module';
-import {WeatherCardModule} from './weather-card/weather-card.module';
-import {WeatherService} from './services/weather.service';
-import {UserService} from './services/user.service';
+import {FavoritesComponent} from './weather/favorites/favorites.component';
+import {FavoritesModule} from './weather/favorites/favorites.module';
+import {WeatherCardModule} from './weather/weather-card/weather-card.module';
+import {WeatherService} from './weather/services/weather.service';
+import {UserService} from './weather/services/user.service';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MaterialAppModule} from './ngmaterial.module';
+import {AuthService} from './core/auth.service';
+import {UiModule} from './ui/ui.module';
 
-
-
-//определение маршрутов
-const appRoutes: Routes = [
-  {path: '', component: WeatherCardComponent},
-  {path: 'forecast', component: ForcastWeatherCardComponent},
-  {path: 'favorites', component: FavoritesComponent}
-]
 
 @NgModule({
   declarations: [
@@ -34,19 +30,21 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    MaterialAppModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
     WeatherCardModule,
     FavoritesModule,
-    RouterModule.forRoot(appRoutes)
-    // AngularFireModule.initializeApp(environment.firebase, 'WeatherByDegys'),
-    // AngularFirestoreModule,
-    // AngularFireStorageModule,
-    // AngularFireAuthModule
+    UiModule,
+    AngularFireModule.initializeApp(environment.firebase, 'WeatherByDegys'),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule
 
   ],
-  providers: [WeatherService, UserService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

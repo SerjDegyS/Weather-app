@@ -5,8 +5,9 @@
 
 <section class="forcast-weather-card" [ngSwitch]="true" *ngIf="forcastWeather">
 
-  <div class="forcast-weather-card__item" *ngFor="let weather of forcastWeather">
-    <div class="forcast-weather-card__city" (click)="showForecast(weather)">
+  <div class="forcast-weather-card__item" *ngFor="let weather of forcastWeather, " [class.active]="clicked === weather">
+
+    <div class="forcast-weather-card__city" (click)="showForecast(weather); clicked = weather" >
       <!--{{weatherCardCity.getCity().name}}, {{weatherCardCity.getCity().country}}, {{weatherCardCity.getCity().coord.lat}}</div>-->
 <div class="forcast-weather-card__date-container">
       <span>{{((weather.day.getDay() === weatherCardCity.getCurrentWeather().date.getDay())? "Today, " + weather.day.toDateString().slice(0,4) : weather.day.toDateString().slice(0,3))}} </span>

@@ -12,8 +12,8 @@ export class WeatherCardCity< T extends IWeatherItemCurrent , E extends IWeather
   //   name: string,
   //   country: string
   // }
-  _current: T;
-  _forecast: E[] = [];
+  private _current: T;
+  private _forecast: E[] = [];
 
   // private tempUnit: TempUnits;
 
@@ -48,7 +48,7 @@ export class WeatherCardCity< T extends IWeatherItemCurrent , E extends IWeather
   getForcastWeather(): IWeatherDayNight[] {
     // console.log(this._forcast);
     if (this._forecast.length === 0) {
-      console.log('return NULL');
+      // console.log('return NULL');
       return null;
     } else {
 

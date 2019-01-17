@@ -62,7 +62,7 @@
               <div class="calendBlock">
                   <p class="infoDayweek">{{dailyForecast[0].date.toDateString().slice(0, 3)}}</p>
                   <div class="weatherIcoCurrent" title="{{dailyForecast[0].condition}}">
-                      <img class="icon" src="http://openweathermap.org/img/w/{{dailyForecast[(dailyForecast.length === 1)? 0 : (dailyForecast.length / 2 | number: '1.0-0')].icon}}" alt="Condition icon">
+                      <img class="icon" src="https://openweathermap.org/img/w/{{dailyForecast[(dailyForecast.length === 1)? 0 : (dailyForecast.length / 2 | number: '1.0-0')].icon}}" alt="Condition icon">
                   </div>
                   <p class="infoDate">{{dailyForecast[0].date | date:'dd'}}</p>
                   <p class="infoMonth">{{dailyForecast[0].date | date:'MMM'}}</p>
@@ -103,7 +103,7 @@
                         <td class="titles bR">Condition</td >
                         <td class="p1  " [className]="((i+1) % 2 === 0 && i !== dailyForecast.length) ? 'bR' : ''" *ngFor = "let item of dailyForecast; let i = index" >
                             <div class="weatherIco" title="{{item.condition}}">
-                              <img class="weatherImg" src="http://openweathermap.org/img/w/{{item.icon}}" alt="Condition icon">
+                              <img class="weatherImg" src="https://openweathermap.org/img/w/{{item.icon}}" alt="Condition icon">
                             </div>
                         </td>
                     </tr>
