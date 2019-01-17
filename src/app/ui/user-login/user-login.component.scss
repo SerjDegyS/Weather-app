@@ -1,0 +1,13 @@
+.login__wrapper{
+  display: flex;
+  position: absolute;
+  //top: 70px;
+  height: calc(100vh - 110px);
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.login_card{
+  position: absolute;
+  top: 70px;
+}

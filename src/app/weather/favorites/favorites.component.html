@@ -1,0 +1,77 @@
+<p>
+  favorites works!
+</p>
+
+<section id="favorite-container">
+  <div id="favorite-container--item" *ngFor="let cityCard of favsCitiesCards">
+    <div class="widget-left widget-left--blue">
+      <div class="widget-left-menu widget-left-menu--blue">
+        <div class="widget-left-menu__layout">
+          <h2 class="widget-left-menu__header">{{cityCard.getCity().name}}, {{cityCard.getCity().country}}</h2>
+          <div class="widget-left-menu__links"><span>More at</span><span href="https://openweathermap.org/" target="_blank" class="widget-left-menu__link">WeatherByDegys</span></div>
+        </div>
+      </div>
+
+      <div class="widget-left__body">
+        <div class="weather-left-card">
+          <div class="weather-left-card__row1"><img src="https://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/{{cityCard.getCurrentWeather().icon}}" width="128" height="128" alt="Weather in London, GB" class="weather-left-card__img">
+            <div class="weather-left-card__col">
+              <p class="weather-left-card__number">{{cityCard.getCurrentWeather().temp}}<span class="weather-left-card__degree">°C</span></p><span class="weather-left-card__rising" *ngIf="cityCard.getForcastWeather()">{{stateOfTemperature(cityCard)}}</span>
+            </div>
+          </div>
+          <div class="weather-left-card__row2">
+            <p class="weather-left-card__means">{{cityCard.getCurrentWeather().condition}}</p>
+            <div class="weather-left-card__row3">
+              <div class="infoDaylight">
+                <div>Sunrise <span>{{cityCard.getCurrentWeather().sunrise | date:'HH:mm'}}</span></div>
+                <div>Sunset <span>{{cityCard.getCurrentWeather().sunset | date:'HH:mm'}}</span></div>
+              </div>
+
+                <p class="weather-left-card__wind">Wind: {{cityCard.getCurrentWeather().windSpeed}} m/s
+                  <img class="wind" [ngStyle]="{'transform':'rotate('+cityCard.getCurrentWeather().windDeg+'deg)'}" src="https://ssl.gstatic.com/m/images/weather/wind_unselected.svg" alt="{{cityCard.getCurrentWeather().windDeg}}°" style="" aria-hidden="true" data-atf="0">
+                </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="widget-left__calendar">
+          <ul class="calendar" >
+            <li class="calendar__item" *ngFor="let dailyForecast of cityCard.getForcastWeather()">
+              {{((dailyForecast.day.getDay() === cityCard.getCurrentWeather().date.getDay())? "Today, " + dailyForecast.day.toDateString().slice(0,4) : dailyForecast.day.toDateString().slice(0,3))}}
+              <br>{{dailyForecast.day | date: 'dd MMM'}}<br>
+              <img src="https://openweathermap.org/img/w/{{dailyForecast.icon}}" width="32" height="32" alt="Today"></li>
+            <!--<li class="calendar__item">Tue<br>15 Jan<img src="https://openweathermap.org/img/w/10d.png" width="32" height="32" alt="Tue"></li>-->
+            <!--<li class="calendar__item">Wed<br>16 Jan<img src="https://openweathermap.org/img/w/10d.png" width="32" height="32" alt="Wed"></li>-->
+            <!--<li class="calendar__item">Thu<br>17 Jan<img src="https://openweathermap.org/img/w/10d.png" width="32" height="32" alt="Thu"></li>-->
+            <!--<li class="calendar__item">Fri<br>18 Jan<img src="https://openweathermap.org/img/w/10d.png" width="32" height="32" alt="Fri"></li>-->
+            <!--<li class="calendar__item">Sat<br>19 Jan<img src="https://openweathermap.org/img/w/10d.png" width="32" height="32" alt="Sat"></li>-->
+            <!--<li class="calendar__item">Sun<br>20 Jan<img src="https://openweathermap.org/img/w/01d.png" width="32" height="32" alt="Sun"></li>-->
+            <!--<li class="calendar__item">Mon<br>21 Jan<img src="https://openweathermap.org/img/w/10d.png" width="32" height="32" alt="Mon"></li>-->
+          </ul>
+          <div id="graphic1" class="widget-left__graphic">
+            <svg class="axis" width="420" height="79" fill="#DDF730" style="stroke: rgb(255, 255, 255);">
+              <g>
+                <path d="M15,22L72,22L129,22L186,34L243,29L300,27L357,34L415,37L415,46L357,56L300,46L243,44L186,51L129,34L72,37L15,34L15,24" style="stroke-width: 1px; stroke: rgb(221, 247, 48); fill: rgb(221, 247, 48); opacity: 1;"></path>
+              </g>
+              <text x="15" y="20.25" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">9°</text>
+              <text x="15" y="51.58333333333333" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">5°</text>
+              <text x="72.14285714285714" y="17.79166666666667" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">10°</text>
+              <text x="72.14285714285714" y="54.04166666666667" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">4°</text>
+              <text x="129.28571428571428" y="17.79166666666667" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">10°</text>
+              <text x="129.28571428571428" y="51.58333333333333" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">5°</text>
+              <text x="186.42857142857142" y="30.08333333333333" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">5°</text>
+              <text x="186.42857142857142" y="68.79166666666666" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">-2°</text>
+              <text x="243.57142857142856" y="25.16666666666667" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">7°</text>
+              <text x="243.57142857142856" y="61.416666666666664" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">1°</text>
+              <text x="300.7142857142857" y="22.70833333333333" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">8°</text>
+              <text x="300.7142857142857" y="63.875" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">0°</text>
+              <text x="357.85714285714283" y="30.08333333333333" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">5°</text>
+              <text x="357.85714285714283" y="73.70833333333333" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">-4°</text>
+
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
