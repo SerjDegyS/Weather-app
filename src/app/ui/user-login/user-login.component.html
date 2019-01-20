@@ -1,9 +1,11 @@
 <p>
-  user-login works!
+  user-login works! {{mesage}}
 </p>
-
+<button (click)="signOut()">signOut</button>
 <div class="login__wrapper">
+  
   <mat-card class="login_card">
+    <h3>Email Login</h3>
     <div class="user">
       <mat-form-field class="example--width">
         <input matInput placeholder="Enter login"
@@ -24,5 +26,16 @@
         color="primary"
         >Enter</button>
     </div>
+
+      <div class="social-login">
+        <h3 class="social-login__title">Social Login</h3>
+        <a class="btn btn-block btn-social btn-google" (click)="signInWithGoogle()">
+          <span class="fa fa-google"></span><span class="btn-social__content"> Sign in with Google</span>
+        </a>
+        <a class="btn btn-block btn-social btn-facebook" (click)="signInWithFacebook()">
+          <span class="fa fa-facebook fa-lg"></span><span class="btn-social__content"> Sign in with Facebook</span>
+        </a>
+      </div>
   </mat-card>
+  
 </div>

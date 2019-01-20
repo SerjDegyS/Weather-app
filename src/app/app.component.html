@@ -2,7 +2,7 @@
 
 <div style='text-align:center' *ngIf="title">
   <h1>
-    Welcome to {{ this?.title }}!
+    Welcome to {{ this?.title }}
   </h1>
   <img class="logo" width="30" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
 </div>
@@ -14,21 +14,21 @@
         <div class="user-menu">
           <p>    <span class="user glyphicon glyphicon-user"></span></p>
           <div class="user-menu__content">
-            <ul>
-              WELCOME BACK
-              <li>Item 1</li>
-              <li>Item 2</li>
-              <li>Item 3</li>
-            </ul>
+              <app-user-profile></app-user-profile>
           </div>
         </div>
       </a>
 
     </li>
-    <li class="nav-item mr-auto">
+    <li class="nav-item mr-auto login" *ngIf="!(auth.user | async); else signOut">
       <a class="nav-link" routerLink="login">LOGIN</a>
     </li>
-    <li class="nav-item mr-lg-auto">
+    <ng-template #signOut>
+      <li class="nav-item mr-auto signout"(click)="signOut()" >
+        <a class="nav-link">SIGNOUT</a>
+      </li>
+    </ng-template>
+    <li class="nav-item mr-lg-auto signout">
       <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="">TODAY</a>
     </li>
     <li class="nav-item">
@@ -42,9 +42,6 @@
 
 <!--<app-weather-card></app-weather-card>-->
 
-<!-- <div id="openweathermap-widget-12"></div> -->
-<script src='//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script>
-<script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 1,cityid: '2643743',appid: 'd7068ea79439a1c4e4435f942b417139',units: 'metric',containerid: 'openweathermap-widget-1',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>
 
 
 <router-outlet></router-outlet>

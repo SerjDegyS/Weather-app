@@ -10,18 +10,13 @@ import {Router} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
 import {auth} from 'firebase';
 
-interface User {
-  uid: string;
-  email?: string | null;
-  photoURL?: string;
-  displayName?: string;
-}
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  user: Observable<User | null>;
+  user: Observable<IUser | null>;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -31,11 +26,13 @@ export class AuthService {
     this.user = this.afAuth.authState.pipe(
       switchMap(user => {
         if(user) {
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+          localStorage.setItem('user', JSON.stringify(user));
+          return this.afs.doc<IUser>(`users/${user.uid}`).valueChanges();
         } else { return (null); }
       })
-    //  tap...
     );
+    console.log(this.user);
+
   }
 
   //  Auth Methods //
@@ -52,6 +49,8 @@ export class AuthService {
 
   public signOut(){
     this.afAuth.auth.signOut().then(() => {
+      console.log('SIGNOUT!!!');
+      
       this.router.navigate(['/']);
     });
   }
@@ -73,16 +72,25 @@ export class AuthService {
     console.log(error);
   }
 
-  private updateUserData(user: User) {
+  public updateUserData(user: IUser) {
     const userRef = this.afs.doc(`users/${user.uid}`);
 
-  const data: User = {
+  const data: IUser = {
     uid: user.uid,
     email: user.email || null,
     displayName: user.displayName || 'user name',
-    photoURL: user.photoURL || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIfMLw1MOz84I_ySvxyLSaKUoATrd30bkNuhn43A84xA2tsryV'
+    photoURL: user.photoURL || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIfMLw1MOz84I_ySvxyLSaKUoATrd30bkNuhn43A84xA2tsryV',
+    favCity: user.favCity || []
+    // [{
+    //   id: 703447, 
+    //   name:"Kiev"
+    // }]
+    
   };
+  console.log(data);
+  
   return userRef.set(data);
+  
   }
 
 }

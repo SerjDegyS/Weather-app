@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {logger} from 'codelyzer/util/logger';
+import { AuthService } from './core/auth.service';
+import { IUser } from './core/user.model';
+import { startWith } from 'rxjs/operators';
+import { auth } from 'firebase';
 declare var jquery: any;
 declare var $: any;
 
@@ -14,11 +18,19 @@ declare var $: any;
 })
 export class AppComponent implements OnInit{
   title = 'WeatherByDegys';
+  user: IUser; 
+
+
+  constructor(private auth: AuthService){
+    this.auth.user.subscribe(user => this.user = user);
+  }
 
   ngOnInit(): void {
     // Hidden or show user-menu
     this.ShowUserMenu();
-
+    // JSON.parse(localStorage.getItem('user'));
+    console.log(this.user);
+    
 
   }
 
@@ -37,4 +49,8 @@ export class AppComponent implements OnInit{
       }
     });
   };
+
+  signOut(){
+    this.auth.signOut();
+  }
 }

@@ -22,6 +22,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialAppModule} from './ngmaterial.module';
 import {AuthService} from './core/auth.service';
 import {UiModule} from './ui/ui.module';
+import { UserProfileComponent } from './ui/user-profile/user-profile.component';
 
 
 @NgModule({
@@ -44,7 +45,7 @@ import {UiModule} from './ui/ui.module';
     AngularFireStorageModule
 
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
