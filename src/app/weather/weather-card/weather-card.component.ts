@@ -80,6 +80,7 @@ export class WeatherCardComponent implements OnInit {
 
   public receiveDailyForecastFromChild(evnt){
     this.dailyForecast = evnt;
+    console.log(evnt)
     }
 
   public addCityToFav(city: IWeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>){

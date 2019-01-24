@@ -70,6 +70,10 @@
             </li>
 
           </ul>
+
+          <div class="weather-forecast__container" *ngIf="forecast" [ngTemplateOutlet]="forecast"></div>
+
+
           <!--<div id="graphic1" class="widget-left__graphic">-->
             <!--<svg class="axis" width="420" height="79" fill="#DDF730" style="stroke: rgb(255, 255, 255);">-->
               <!--<g>-->
@@ -93,14 +97,17 @@
             <!--</svg>-->
           <!--</div>-->
         </div>
+
+
       </div>
     </div>
   </div>
 
-  <div class="weather-forecast__container">
-    <app-weather-details *ngIf="showForecast" [dailyForecast]="dailyForecast"></app-weather-details>
-  </div>
+  <ng-template #forecast>
 
+    <app-weather-details [dailyForecast]="currdailyForecast" ></app-weather-details>
+
+  </ng-template>
 </section>
 
 

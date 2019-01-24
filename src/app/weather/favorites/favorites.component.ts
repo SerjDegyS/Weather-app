@@ -18,9 +18,9 @@ export class FavoritesComponent implements OnInit {
   private favsCities: IFavCity[] = [];
   favsCitiesCards: IWeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>[] = [];
   forecastWeather: IWeatherDayNight[] = [];
-  @Output() dailyForecast: IWeatherItemForecast[];
+  @Output() currdailyForecast: IWeatherItemForecast[];
   message: string;
-  showForecast: boolean = true;
+  // showForecast: boolean = true;
 
   constructor(private authService: AuthService, private weatherService: WeatherService, private favCitiesService: FavoriteCitiesService) {
   }
@@ -72,7 +72,7 @@ export class FavoritesComponent implements OnInit {
   }
 
   showForecastWeather(weatherDayNight: IWeatherDayNight){
-    this.dailyForecast = weatherDayNight.fullWeatherDayNight;
+    this.currdailyForecast = weatherDayNight.fullWeatherDayNight;
     console.log('SHOW');
     // this.showForecast = !this.showForecast;
   }
