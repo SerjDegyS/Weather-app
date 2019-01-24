@@ -1,25 +1,27 @@
 <p>
-  user-profile works!
+  YOU PROFILE
 </p>
 
 <div class="user-container">
   <div *ngIf="auth.user | async; then authenticated else needLogined">
-    <!--tempate-->
+    <!--template-->
 
   </div>
 </div>
 
 <!--user need logined-->
-<ng-template #needLogined>
+<ng-template #needLogined >
   <h3>Login to get started..!</h3>
-  <button class="btn" routerLink="/login">Login</button>
+  <button class="btn" (click)="login()">Login</button>
 </ng-template>
 
 <!--user logged in-->
 <ng-template #authenticated>
-  <div *ngIf="auth.user | async as user">
-  <h3 class="welcome">WELCOME BACK, <br> {{user.dispalyName}}</h3>
-  <img class="card-img-top" [src]="user.photoURL || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIfMLw1MOz84I_ySvxyLSaKUoATrd30bkNuhn43A84xA2tsryV'" width="50px">
-  <button class="btn" (click)="logOut()">Logout</button>
-</div>
+  <div class="user-info-container">
+      <div class="user-info-container" *ngIf="auth.user | async as user" >
+      <h3 class="welcome">WELCOME BACK, <br> {{user.displayName}}</h3>
+      <img class="card-img-top" [src]="user.photoURL || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIfMLw1MOz84I_ySvxyLSaKUoATrd30bkNuhn43A84xA2tsryV'">
+      <button class="btn" (click)="logOut()">Logout</button>
+    </div>
+  </div>
 </ng-template>

@@ -17,17 +17,18 @@ import {FavoritesComponent} from './weather/favorites/favorites.component';
 import {FavoritesModule} from './weather/favorites/favorites.module';
 import {WeatherCardModule} from './weather/weather-card/weather-card.module';
 import {WeatherService} from './weather/services/weather.service';
-import {UserService} from './weather/services/user.service';
+import {FavoriteCitiesService} from './weather/services/favorite-cities.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialAppModule} from './ngmaterial.module';
 import {AuthService} from './core/auth.service';
 import {UiModule} from './ui/ui.module';
 import { UserProfileComponent } from './ui/user-profile/user-profile.component';
+import {WeatherDetailsComponent} from './weather/weather-details/weather-details.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,

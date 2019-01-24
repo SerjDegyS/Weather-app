@@ -10,22 +10,22 @@
 <nav>
   <ul class="nav nav-tabs justify-content-center">
     <li class="my-drop-down-menu nav-item ">
-      <a class="user__link" href="#">
+      <div class="user__link">
         <div class="user-menu">
-          <p>    <span class="user glyphicon glyphicon-user"></span></p>
-          <div class="user-menu__content">
+          <p>    <span id="user" class="user glyphicon glyphicon-user"></span></p>
+          <div id="user-menu__content" class="user-menu__content">
               <app-user-profile></app-user-profile>
           </div>
         </div>
-      </a>
+      </div>
 
     </li>
     <li class="nav-item mr-auto login" *ngIf="!(auth.user | async); else signOut">
-      <a class="nav-link" routerLink="login">LOGIN</a>
+      <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="login">LOGIN</a>
     </li>
     <ng-template #signOut>
-      <li class="nav-item mr-auto signout"(click)="signOut()" >
-        <a class="nav-link">SIGNOUT</a>
+      <li class="nav-item mr-auto signout" >
+        <a class="nav-link" (click)="logOut()">LogOUT</a>
       </li>
     </ng-template>
     <li class="nav-item mr-lg-auto signout">
@@ -33,9 +33,6 @@
     </li>
     <li class="nav-item">
       <a class="nav-link" routerLinkActive="active" routerLink="favorites">FAVORITE</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link disabled" href="#">Disabled</a>
     </li>
   </ul>
 </nav>

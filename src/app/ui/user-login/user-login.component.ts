@@ -13,14 +13,18 @@ import { auth } from 'firebase';
 export class UserLoginComponent implements OnInit {
 
   user: IUser;
+  message: string = 'CHOSE YOU LOGIN PROVIDERS';
 
   constructor(public auth: AuthService, private router: Router) {
-    auth.user.subscribe(data => this.user = data);
+    auth.user.subscribe(data => {
+      this.user = data;
+      this.message = (this.user) ? 'YOU ARE ALREADY LOGINED' : 'CHOSE YOU LOGIN PROVIDERS';
+    });
     
    }
 
   ngOnInit() {
-    let mesage = (this.user) ? 'You are allredy logined!' : 'Login please!';
+
   }
 ///  Social Login
   async signInWithGoogle(){

@@ -1,4 +1,15 @@
 
+.message{
+  text-align: center;
+  margin: 10px;
+}
+
+#favorite-container--item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .widget-left,.widget-left-menu__header,.widget-left-menu__link,.widget-left-menu__links span {
   font-family: Roboto,Arial,sans-serif!important
 }
@@ -104,6 +115,32 @@
   position: relative;
   border-radius: 0 0 6px 6px
 }
+
+.calendar__item{
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+  align-items: center;
+}
+
+.min-max__container {
+  display: grid;
+  width: 1em;
+  grid-template-rows: 3fr;
+  grid-template-columns: 1fr;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.min__container, .max__container, .weather-card__temp-unit {
+  // margin: 1rem 2rem;
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  width: 25px;
+}
+
 
 .widget-left-menu__link,.widget-left-menu__links span {
   font-size: 14px;
@@ -292,6 +329,13 @@
   text-align: center
 }
 
+.calendar__item__container{
+  //border: 1px solid black;
+  //border-radius: 4px;
+  flex-direction: column;
+  align-items: center;
+}
+
 .calendar__item:last-child {
   margin-right: 0
 }
@@ -301,3 +345,4 @@
   width:30px;
   margin-left: 10px;
 }
+

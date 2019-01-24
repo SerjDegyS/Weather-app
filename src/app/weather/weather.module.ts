@@ -3,15 +3,16 @@ import { CommonModule } from '@angular/common';
 import {WeatherCardModule} from './weather-card/weather-card.module';
 import {FavoritesModule} from './favorites/favorites.module';
 import {WeatherService} from './services/weather.service';
-import {UserService} from './services/user.service';
+import {FavoriteCitiesService} from './services/favorite-cities.service';
+import { WeatherDetailsComponent } from './weather-details/weather-details.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [WeatherDetailsComponent],
   imports: [
     CommonModule,
     WeatherCardModule,
     FavoritesModule
   ],
-  providers: [WeatherService, UserService]
+  providers: [WeatherService, FavoriteCitiesService]
 })
 export class WeatherModule { }

@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {IWeatherCardCity, IWeatherDayNight} from '../model/IWeatherCity.interface';
 import {IWeatherItemCurrent, IWeatherItemForecast} from '../model/IWeather-item.interface';
 import {FormControl} from '@angular/forms';
 import {WeatherService} from '../services/weather.service';
 import { AuthService } from 'src/app/core/auth.service';
 import { IFavCity } from 'src/app/core/user.model';
+import {FavoriteCitiesService} from '../services/favorite-cities.service';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-favorites',
@@ -13,36 +15,66 @@ import { IFavCity } from 'src/app/core/user.model';
 })
 export class FavoritesComponent implements OnInit {
 
-  private favsCities: IFavCity[];
-  favsCitiesCards: IWeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>[];
-  dailyForecast: IWeatherDayNight
+  private favsCities: IFavCity[] = [];
+  favsCitiesCards: IWeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>[] = [];
+  forecastWeather: IWeatherDayNight[] = [];
+  @Output() dailyForecast: IWeatherItemForecast[];
+  message: string;
+  showForecast: boolean = true;
 
-  // selectedCity = new FormControl();
-  constructor(private userService: AuthService, private weatherService: WeatherService) {
+  constructor(private authService: AuthService, private weatherService: WeatherService, private favCitiesService: FavoriteCitiesService) {
   }
 
   ngOnInit() {
     /*Get user favorite cities*/
     console.log('Get user favorite cities');
-    this.userService.user
-      .subscribe(data => {
-        this.favsCities = data['favCity'];
-        if(this.favsCities.length !== 0){
-        let favsCitiesString = this.favsCities.reduce((listId, city) => listId + city.id + ',', '');
-        this.weatherService.getCurrentWeatherByCitesGroup(favsCitiesString.slice(0, -1)).subscribe(dat => {
-          /*Get forecast weather for cities*/
-          console.log('Get forecast for cities');
-          this.favsCitiesCards = dat.map(cityCard => {
-            this.weatherService.getForcastWeatherByCityCard(cityCard).subscribe(d => cityCard = d);
-            console.log(cityCard);
-            return cityCard;
-          });
-        });
-      }else this.favsCities = [];
-      });
+      this.authService.user.subscribe(user => {
+        if(user) {
+          this.favCitiesService.getFavCities().subscribe(favCitiesData => {
+            console.log(favCitiesData);
+            this.favsCities = favCitiesData;
+            this.getWeatherForFavCities();
+          })
+        }
+      })
+  };
+
+
+
+
+
+  private getWeatherForFavCities(): IWeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>[] {
+    if(this.favsCities.length !== 0) {
+      this.message = 'YOU FAVORITE CITIES';
+      let favsCitiesString = this.favsCities.reduce((listId, city) => listId + city.id + ',', '');
+      this.weatherService.getCurrentWeatherByCitesGroup(favsCitiesString.slice(0, -1))
+      /*Get forecast weather for cities*/
+        .pipe(map(obsCityCards => obsCityCards.
+          map(cityCard => this.weatherService.getForcastWeatherByCityCard(cityCard)
+          .pipe(map(cityCardWithForecast => cityCard = cityCardWithForecast)))))
+            .pipe(map(obsFullCityCards => obsFullCityCards
+              .map(obsFullCityCard => obsFullCityCard.subscribe(fullCityCard => this.favsCitiesCards.push(fullCityCard))
+              ))).subscribe();
+    } else {
+      this.message = 'YOU DON\'T HAVE FAVORITE CITIES YET'
+      return this.favsCitiesCards = [];
+    }
   }
 
   public stateOfTemperature(cityCard): string {
     return (cityCard.getCurrentWeather().temp <= cityCard.getForcastWeather()[0].fullWeatherDayNight[0].temp) ? 'and rising' : 'and falling';
   }
+
+  getForecastWeather(cityCard: IWeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>){
+    this.forecastWeather = cityCard.getForcastWeather();
+    console.log(this.forecastWeather);
+    return this.forecastWeather;
+  }
+
+  showForecastWeather(weatherDayNight: IWeatherDayNight){
+    this.dailyForecast = weatherDayNight.fullWeatherDayNight;
+    console.log('SHOW');
+    // this.showForecast = !this.showForecast;
+  }
+
 }

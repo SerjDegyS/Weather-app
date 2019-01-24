@@ -18,16 +18,22 @@ declare var $: any;
 })
 export class AppComponent implements OnInit{
   title = 'WeatherByDegys';
-  user: IUser; 
+  user: IUser;
+  // showedUserMenuAfterAuth: boolean = false;
 
 
   constructor(private auth: AuthService){
-    this.auth.user.subscribe(user => this.user = user);
+    this.auth.user.subscribe(user => {
+      (user)? this.showedUserMenuAfterAuth() : '';
+      this.user = user;
+    });
   }
 
   ngOnInit(): void {
+
     // Hidden or show user-menu
-    this.ShowUserMenu();
+
+    this.showUserMenuByClick();
     // JSON.parse(localStorage.getItem('user'));
     console.log(this.user);
     
@@ -35,22 +41,30 @@ export class AppComponent implements OnInit{
   }
 
 
-  ShowUserMenu() {
-    $(document).mouseup(function (e) {
-      const userMenu = $('.user');
-      const userMenuContent = $('.user-menu__content');
-      // console.log(e);
-      if (userMenu.is(e.target) && !userMenuContent.hasClass('user-menu__opened')
-        || $('.user-menu__content').has(e.target).length !== 0) {
-        console.log(e);
-        userMenuContent.addClass('user-menu__opened');
-      } else {
-        userMenuContent.removeClass('user-menu__opened');
-      }
-    });
-  };
+  showUserMenuByClick() {
+    const userMenu = document.getElementById('user');
+    const userMenuContent = document.getElementById('user-menu__content');
 
-  signOut(){
+    window.addEventListener('click', function (e) {
+      // console.log(e);
+      // console.log(e.target['parentNode'].className)
+      if ((e.target === userMenu || e.target['parentNode'].className === 'user-menu'
+        || e.target['parentNode'].className === 'user-info-container')) {
+        // && !userMenuContent.className.includes('user-menu__opened')) {
+        // if (e.target === userMenu
+        userMenuContent.classList.add('user-menu__opened');
+      } else {
+        userMenuContent.classList.remove('user-menu__opened');
+      }
+
+    });
+  }
+
+  showedUserMenuAfterAuth(){
+    $('.user-menu__content').addClass('user-menu__opened');
+  }
+
+  logOut(){
     this.auth.signOut();
   }
 }

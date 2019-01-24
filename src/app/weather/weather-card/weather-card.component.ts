@@ -5,20 +5,23 @@ import {IWeatherItemCurrent, IWeatherItemForecast} from '../model/IWeather-item.
 
 import {WeatherService} from '../services/weather.service';
 import {IWeatherCardCity, IWeatherDayNight} from '../model/IWeatherCity.interface';
+import {IUser} from '../../core/user.model';
+import {AuthService} from '../../core/auth.service';
+import {FavoriteCitiesService} from '../services/favorite-cities.service';
 
 @Component({
   selector: 'app-weather-card',
   templateUrl: './weather-card.component.html',
   styleUrls: ['./weather-card.component.scss'],
-  providers: [WeatherService]
+  providers: [WeatherService, AuthService]
 })
 export class WeatherCardComponent implements OnInit {
 
   weatherCardCity: IWeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>;
   currentWeather: IWeatherItemCurrent;
-  forcast: IWeatherDayNight[];
+  user: IUser;
   showforcast: boolean = false;
-  dailyForecast: IWeatherItemForecast[];
+  @Output() dailyForecast: IWeatherItemForecast[];
   city: string = 'kiev';
   private currentPosition: {
     lat: number,
@@ -26,7 +29,7 @@ export class WeatherCardComponent implements OnInit {
   };
 
 
-  constructor(private weatherHttp: WeatherService) {
+  constructor(private weatherHttp: WeatherService, private userService: AuthService, private favCitiesService: FavoriteCitiesService) {
   }
 
   ngOnInit(): void {
@@ -53,12 +56,16 @@ export class WeatherCardComponent implements OnInit {
           })
         }
       )}else {
-      this.weatherHttp.getCurrentWeatherCardByCity(this.city).subscribe(data => {
-        this.weatherCardCity = data;
-        this.currentWeather = this.weatherCardCity.getCurrentWeather();
+        this.weatherHttp.getCurrentWeatherCardByCity(this.city).subscribe(data => {
+          this.weatherCardCity = data;
+          this.currentWeather = this.weatherCardCity.getCurrentWeather();
       })
     }
-    console.log(this.dailyForecast);
+
+    this.userService.user.subscribe(user => {
+      this.user = user
+      console.log(this.user);
+    });
   }
 
   public searchCityWeatherCard(){
@@ -75,7 +82,11 @@ export class WeatherCardComponent implements OnInit {
     this.dailyForecast = evnt;
     }
 
-  public render(){
-    return console.log('RENDER');
+  public addCityToFav(city: IWeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>){
+    const newFavCity = {
+      id: city.getCity().id,
+      name: city.getCity().name
+    }
+    this.favCitiesService.updateFavCities(newFavCity);
   }
 }
