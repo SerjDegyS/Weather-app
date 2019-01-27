@@ -10,7 +10,7 @@
 
   <div class="weather-card__item" (click)="showforcast = !showforcast">
     <div class="weather-card__city">
-        <span>Weather for </span>
+        <span>Weather for </span><br>
       {{weatherCardCity.getCity().name}}, {{weatherCardCity.getCity().country}}
     </div>
 
@@ -26,6 +26,7 @@
 
     <div class="weather-card__condition"><p>{{currentWeather.description}}</p></div>
 
+    <span class="tap">TAP TO SEE FORECAST</span>
 
     <div class="infoDaylight">
       <div>Sunrise <span>{{currentWeather.sunrise | date:'HH:mm'}}</span></div>

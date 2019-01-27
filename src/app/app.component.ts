@@ -19,12 +19,12 @@ declare var $: any;
 export class AppComponent implements OnInit{
   title = 'WeatherByDegys';
   user: IUser;
-  // showedUserMenuAfterAuth: boolean = false;
+  isOpened: boolean = false;
 
 
   constructor(private auth: AuthService){
     this.auth.user.subscribe(user => {
-      (user)? this.showedUserMenuAfterAuth() : '';
+      this.isOpened = (user)? true : false;
       this.user = user;
     });
   }
@@ -33,31 +33,37 @@ export class AppComponent implements OnInit{
 
     // Hidden or show user-menu
 
-    this.showUserMenuByClick();
-    // JSON.parse(localStorage.getItem('user'));
-    console.log(this.user);
+    // this.showUserMenuByClick();
+    // // JSON.parse(localStorage.getItem('user'));
+    // console.log(this.user);
     
 
   }
 
 
-  showUserMenuByClick() {
-    const userMenu = document.getElementById('user');
-    const userMenuContent = document.getElementById('user-menu__content');
+  showUserMenuByClick(event) {
+    this.isOpened = !this.isOpened;
+    console.log(event);
+    
+    
 
-    window.addEventListener('click', function (e) {
-      // console.log(e);
-      // console.log(e.target['parentNode'].className)
-      if ((e.target === userMenu || e.target['parentNode'].className === 'user-menu'
-        || e.target['parentNode'].className === 'user-info-container')) {
-        // && !userMenuContent.className.includes('user-menu__opened')) {
-        // if (e.target === userMenu
-        userMenuContent.classList.add('user-menu__opened');
-      } else {
-        userMenuContent.classList.remove('user-menu__opened');
-      }
 
-    });
+    // const userMenu = document.getElementById('user');
+    // const userMenuContent = document.getElementById('user-menu__content');
+
+    // window.addEventListener('click', function (e) {
+    //   // console.log(e);
+    //   // console.log(e.target['parentNode'].className)
+    //   if ((e.target === userMenu || e.target['parentNode'].className === 'user-menu'
+    //     || e.target['parentNode'].className === 'user-info-container')) {
+    //     // && !userMenuContent.className.includes('user-menu__opened')) {
+    //     // if (e.target === userMenu
+    //     userMenuContent.classList.add('user-menu__opened');
+    //   } else {
+    //     userMenuContent.classList.remove('user-menu__opened');
+    //   }
+
+    // });
   }
 
   showedUserMenuAfterAuth(){

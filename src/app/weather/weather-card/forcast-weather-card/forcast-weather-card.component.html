@@ -1,6 +1,7 @@
-<span class="x-day-forecast">
-  5 days weather forecast for <span class="city-name">{{weatherCardCity.getCity().name}} city</span>
-</span>
+<div class="x-day-forecast">
+  <span>5 days weather forecast for <span class="city-name">{{weatherCardCity.getCity().name}} city</span>
+  </span>
+</div>
 
 
 <section class="forcast-weather-card" [ngSwitch]="true" *ngIf="forcastWeather">
@@ -10,7 +11,7 @@
     <div class="forcast-weather-card__city" (click)="showForecast(weather); clicked = weather" >
       <!--{{weatherCardCity.getCity().name}}, {{weatherCardCity.getCity().country}}, {{weatherCardCity.getCity().coord.lat}}</div>-->
 <div class="forcast-weather-card__date-container">
-      <span>{{((weather.day.getDay() === weatherCardCity.getCurrentWeather().date.getDay())? "Today, " + weather.day.toDateString().slice(0,4) : weather.day.toDateString().slice(0,3))}} </span>
+      <span>{{((weather.day.getDay() === weatherCardCity.getCurrentWeather().date.getDay())? "Today," + weather.day.toDateString().slice(0,4) : weather.day.toDateString().slice(0,3))}} </span>
       <span>{{weather.day | date: 'dd/MM'}}</span>
 </div>
 

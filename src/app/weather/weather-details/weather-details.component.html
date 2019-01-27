@@ -20,10 +20,10 @@
         <tr>
           <td class="bR"></td>
           <td class="" colspan="2" [className]="((i+1) % 2 === 0 && i !== dailyForecast.length) ? 'bR show' : 'display-none'" *ngFor = "let item of dailyForecast; let i = index" >
-            <p class="" *ngIf="item.date.getHours() > 0 && item.date.getHours() <= 6">night</p>
-            <p class="" *ngIf="item.date.getHours() > 6 && item.date.getHours() <= 12">morning</p>
-            <p class="" *ngIf="item.date.getHours() > 12 && item.date.getHours() <= 18">afternoon</p>
-            <p class="" *ngIf="item.date.getHours() > 18 && item.date.getHours() <=24">evening</p>
+            <p class="time" *ngIf="item.date.getHours() > 0 && item.date.getHours() <= 6">night</p>
+            <p class="time" *ngIf="item.date.getHours() > 6 && item.date.getHours() <= 12">morning</p>
+            <p class="time" *ngIf="item.date.getHours() > 12 && item.date.getHours() <= 18">afternoon</p>
+            <p class="time" *ngIf="item.date.getHours() > 18 && item.date.getHours() <=24">evening</p>
           </td>
         </tr>
         </thead>
