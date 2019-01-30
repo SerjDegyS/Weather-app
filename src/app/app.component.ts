@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {logger} from 'codelyzer/util/logger';
-import { AuthService } from './core/auth.service';
-import { IUser } from './core/user.model';
-import { startWith } from 'rxjs/operators';
-import { auth } from 'firebase';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {AuthService} from './core/auth.service';
+import {IUser} from './core/user.model';
+
 declare var jquery: any;
 declare var $: any;
 
@@ -42,33 +40,9 @@ export class AppComponent implements OnInit{
 
 
   showUserMenuByClick(event) {
-    this.isOpened = !this.isOpened;
-    console.log(event);
-    
-    
-
-
-    // const userMenu = document.getElementById('user');
-    // const userMenuContent = document.getElementById('user-menu__content');
-
-    // window.addEventListener('click', function (e) {
-    //   // console.log(e);
-    //   // console.log(e.target['parentNode'].className)
-    //   if ((e.target === userMenu || e.target['parentNode'].className === 'user-menu'
-    //     || e.target['parentNode'].className === 'user-info-container')) {
-    //     // && !userMenuContent.className.includes('user-menu__opened')) {
-    //     // if (e.target === userMenu
-    //     userMenuContent.classList.add('user-menu__opened');
-    //   } else {
-    //     userMenuContent.classList.remove('user-menu__opened');
-    //   }
-
-    // });
+    this.isOpened = event;
   }
 
-  showedUserMenuAfterAuth(){
-    $('.user-menu__content').addClass('user-menu__opened');
-  }
 
   logOut(){
     this.auth.signOut();

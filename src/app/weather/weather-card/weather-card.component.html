@@ -25,16 +25,18 @@
     </div>
 
     <div class="weather-card__condition"><p>{{currentWeather.description}}</p></div>
-
-    <span class="tap">TAP TO SEE FORECAST</span>
-
+    <div class="btn btn-outline-warning">
+      <span class="tap btn btn-outline-primary">TAP TO SEE FORECAST</span>
+    </div>
     <div class="infoDaylight">
       <div>Sunrise <span>{{currentWeather.sunrise | date:'HH:mm'}}</span></div>
       <div>Sunset <span>{{currentWeather.sunset | date:'HH:mm'}}</span></div>
     </div>
 
-    <div class="btn btn-add" (click)="addCityToFav(weatherCardCity)">
-      <button>+</button>
+    <div class="btn btn-outline-success btn-add" (click)="addCityToFav(weatherCardCity)">
+      <span class="glyphicon glyphicon-remove-circle add"></span>
+      <br>
+      <span>TAP TO ADD</span>
     </div>
 
     <div class="weather-card__item-data">
@@ -143,7 +145,7 @@
                   <!--</tbody>-->
               <!--</table>-->
 
-            <app-weather-details *ngIf="showforcast" [dailyForecast]="dailyForecast"></app-weather-details>
+            <app-weather-details *ngIf="showforcast" [isShowBackgroundImage]="true" [dailyForecast]="dailyForecast"></app-weather-details>
 
 </section>
 <app-forcast-weather-card *ngIf="showforcast" [weatherCardCity] = "weatherCardCity" (dailyForecast)="receiveDailyForecastFromChild($event)"></app-forcast-weather-card>

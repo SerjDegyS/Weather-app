@@ -39,8 +39,7 @@ export class WeatherCardComponent implements OnInit {
             lat: position.coords.latitude,
             lng: +position.coords.longitude
           }
-          console.log(this.currentPosition);
-          console.log(position.coords.accuracy);
+
           this.weatherHttp.getCurrentWeatherCardByPosition(this.currentPosition).subscribe(data => {
             console.log(data);
             this.weatherCardCity = data;
@@ -80,7 +79,6 @@ export class WeatherCardComponent implements OnInit {
 
   public receiveDailyForecastFromChild(evnt){
     this.dailyForecast = evnt;
-    console.log(evnt)
     }
 
   public addCityToFav(city: IWeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>){
@@ -88,6 +86,6 @@ export class WeatherCardComponent implements OnInit {
       id: city.getCity().id,
       name: city.getCity().name
     }
-    this.favCitiesService.updateFavCities(newFavCity);
+    this.favCitiesService.addFavCities(newFavCity);
   }
 }

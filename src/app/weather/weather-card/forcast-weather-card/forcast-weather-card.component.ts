@@ -35,12 +35,10 @@ export class ForcastWeatherCardComponent implements OnInit {
 /*Sent to card.component forecast weather by current day*/
   public showForecast(weather) {
     this.dailyForecast.emit(weather.fullWeatherDayNight);
-    console.log(weather);
   }
 
   private setForecastToComponent(){
     this.forcastWeather = this.weatherCardCity.getForcastWeather();
-    console.log(this.forcastWeather);
     this.dailyForecast.emit(this.forcastWeather[0].fullWeatherDayNight);
   }
 }

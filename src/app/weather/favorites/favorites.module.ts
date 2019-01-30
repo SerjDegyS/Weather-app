@@ -6,9 +6,10 @@ import { AuthService } from 'src/app/core/auth.service';
 import {WeatherDetailsComponent} from '../weather-details/weather-details.component';
 import {WeatherCardModule} from '../weather-card/weather-card.module';
 import {WeatherDetailsModule} from '../weather-details/weather-details.module';
+import { FavoriteForecastComponent } from './favorite-forecast/favorite-forecast.component';
 
 @NgModule({
-  declarations: [FavoritesComponent],
+  declarations: [FavoritesComponent, FavoriteForecastComponent],
   providers:[AuthService],
   imports: [
     CommonModule,

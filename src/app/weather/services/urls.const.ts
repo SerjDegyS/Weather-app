@@ -19,7 +19,6 @@ export class UrlsConst {
   }
 
   public static weatherByAllCitesId(groupId: string): string{
-    console.log(groupId)
     const url = `https://api.openweathermap.org/data/2.5/group?id=${groupId}&units=metric&APPID=` + this.APPID;
     return url;
   }

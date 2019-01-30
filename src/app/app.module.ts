@@ -24,11 +24,13 @@ import {AuthService} from './core/auth.service';
 import {UiModule} from './ui/ui.module';
 import { UserProfileComponent } from './ui/user-profile/user-profile.component';
 import {WeatherDetailsComponent} from './weather/weather-details/weather-details.component';
+import {ShowUserMenuDirective} from './show-user-menu.directive';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ShowUserMenuDirective
   ],
   imports: [
     BrowserModule,

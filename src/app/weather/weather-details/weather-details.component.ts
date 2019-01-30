@@ -9,6 +9,7 @@ import {IWeatherItemForecast} from '../model/IWeather-item.interface';
 })
 export class WeatherDetailsComponent implements OnInit {
 
+  @Input() isShowBackgroundImage: boolean = true;
   @Input() dailyForecast: IWeatherItemForecast[] = [];
 
   constructor() { }

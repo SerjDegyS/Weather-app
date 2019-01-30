@@ -8,7 +8,10 @@
       <div class="widget-left-menu widget-left-menu--blue">
         <div class="widget-left-menu__layout">
           <h2 class="widget-left-menu__header">{{cityCard.getCity().name}}, {{cityCard.getCity().country}}</h2>
-          <div class="widget-left-menu__links"><span href="https://openweathermap.org/" target="_blank" class="widget-left-menu__link">WeatherByDegys</span></div>
+            <span href="https://openweathermap.org/" target="_blank" class="widget-left-menu__link">WeatherByDegys</span>
+          <div class="btn btn-outline-danger btn-remove" (click)="removeCity(cityCard)">
+            <span class="glyphicon glyphicon-remove-circle remove"></span>
+          </div>
         </div>
       </div>
 
@@ -40,7 +43,7 @@
               <!--<div class="calendar__item__container" >-->
                 {{((dailyForecast.day.getDay() === cityCard.getCurrentWeather().date.getDay())? "Today, " + dailyForecast.day.toDateString().slice(0,4) : dailyForecast.day.toDateString().slice(0,3))}}
                 <br>{{dailyForecast.day | date: 'dd MMM'}}<br>
-                <img src="https://openweathermap.org/img/w/{{dailyForecast.icon}}" width="40" height="40" alt="Today">
+                <img src="https://openweathermap.org/img/w/{{dailyForecast.icon}}" width="45" height="45" alt="Today">
 
                 <div class="min-max__container">
 
@@ -63,51 +66,19 @@
                     <span class="min-temperature__text">{{dailyForecast.tempMin}}</span>
                   </div>
                 </div>
-
-              <button class="btn see-forecast_click" style="width: 50px; height: 40px" (click)="showForecastWeather(dailyForecast)" >
-                <p><span class="glyphicon glyphicon-chevron-down"></span></p>
-              </button>
             </li>
-
           </ul>
 
-          <div class="weather-forecast__container" *ngIf="forecast" [ngTemplateOutlet]="forecast"></div>
-
-
-          <!--<div id="graphic1" class="widget-left__graphic">-->
-            <!--<svg class="axis" width="420" height="79" fill="#DDF730" style="stroke: rgb(255, 255, 255);">-->
-              <!--<g>-->
-                <!--<path d="M15,22L72,22L129,22L186,34L243,29L300,27L357,34L415,37L415,46L357,56L300,46L243,44L186,51L129,34L72,37L15,34L15,24" style="stroke-width: 1px; stroke: rgb(221, 247, 48); fill: rgb(221, 247, 48); opacity: 1;"></path>-->
-              <!--</g>-->
-              <!--<text x="15" y="20.25" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">9°</text>-->
-              <!--<text x="15" y="51.58333333333333" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">5°</text>-->
-              <!--<text x="72.14285714285714" y="17.79166666666667" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">10°</text>-->
-              <!--<text x="72.14285714285714" y="54.04166666666667" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">4°</text>-->
-              <!--<text x="129.28571428571428" y="17.79166666666667" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">10°</text>-->
-              <!--<text x="129.28571428571428" y="51.58333333333333" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">5°</text>-->
-              <!--<text x="186.42857142857142" y="30.08333333333333" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">5°</text>-->
-              <!--<text x="186.42857142857142" y="68.79166666666666" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">-2°</text>-->
-              <!--<text x="243.57142857142856" y="25.16666666666667" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">7°</text>-->
-              <!--<text x="243.57142857142856" y="61.416666666666664" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">1°</text>-->
-              <!--<text x="300.7142857142857" y="22.70833333333333" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">8°</text>-->
-              <!--<text x="300.7142857142857" y="63.875" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">0°</text>-->
-              <!--<text x="357.85714285714283" y="30.08333333333333" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">5°</text>-->
-              <!--<text x="357.85714285714283" y="73.70833333333333" text-anchor="middle" style="font-size: 12px; stroke: rgb(51, 51, 51); fill: rgb(51, 51, 51);">-4°</text>-->
-
-            <!--</svg>-->
-          <!--</div>-->
         </div>
 
-
+      </div>
+      <div class="weather-forecast__container">
+        <app-favorite-forecast [dailyForecast]="cityCard.getForcastWeather()" ></app-favorite-forecast>
       </div>
     </div>
+
   </div>
 
-  <ng-template #forecast>
-
-    <app-weather-details [dailyForecast]="currdailyForecast" ></app-weather-details>
-
-  </ng-template>
 </section>
 
 

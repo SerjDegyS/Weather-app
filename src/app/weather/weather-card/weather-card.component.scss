@@ -28,7 +28,7 @@
   display: flex;
   flex-direction: column;
   align-content: space-between;
-  height: 20em;
+  height: 21em;
   //align-content: center;
   align-items: center;
   margin: 20px;
@@ -49,18 +49,14 @@
   cursor: pointer;
 }
 
-.weather-card__item > div{
-  margin: 5px;
-}
-
 .weather-card__city span{
   font-size: 10px;
 }
 
-.tap{
-  font-size: 10px;
-  color: #ff4f98;
-}
+//.tap{
+//  font-size: 10px;
+//  color: #ff4f98;
+//}
 
 .weather-card__condition-icon-container{
   display: flex;
@@ -68,7 +64,7 @@
   justify-content: space-around;
   align-items: center;
   background-color: white;
-  margin: 7px;
+  //margin: 7px;
   width: 100%;
 }
 
@@ -88,8 +84,14 @@
 
 .infoDaylight{
   font-size: 10px;
+  margin: 5px;
 }
 
 .weather-card__item-data{
   font-size: 13px;
 }
+
+.add{
+  font-size: 30px;
+}
+
