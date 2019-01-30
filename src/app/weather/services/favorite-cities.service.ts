@@ -46,7 +46,7 @@ export class FavoriteCitiesService implements OnInit {
         console.log(this.userFavCities);
       }
     }
-    console.log(remFavCity)
+    // console.log(remFavCity)
     this.afs.doc<any>(`userFavCities/${this.currUser.uid}`).set({favCities: this.userFavCities});
 
   }

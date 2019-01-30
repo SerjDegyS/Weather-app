@@ -3,13 +3,13 @@
 </p>
 
 <section id="favorite-container" >
-  <div id="favorite-container--item" *ngFor="let cityCard of favsCitiesCards" >
+  <div id="favorite-container--item" *ngFor="let cityCard of favsCitiesCards, let item = index" >
     <div class="widget-left widget-left--blue">
       <div class="widget-left-menu widget-left-menu--blue">
         <div class="widget-left-menu__layout">
           <h2 class="widget-left-menu__header">{{cityCard.getCity().name}}, {{cityCard.getCity().country}}</h2>
             <span href="https://openweathermap.org/" target="_blank" class="widget-left-menu__link">WeatherByDegys</span>
-          <div class="btn btn-outline-danger btn-remove" (click)="removeCity(cityCard)">
+          <div class="btn btn-outline-danger btn-remove" (click)="removeCity(cityCard, item)">
             <span class="glyphicon glyphicon-remove-circle remove"></span>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import {Component, OnInit, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit, Output} from '@angular/core';
 import {IWeatherCardCity, IWeatherDayNight} from '../model/IWeatherCity.interface';
 import {IWeatherItemCurrent, IWeatherItemForecast} from '../model/IWeather-item.interface';
 import {FormControl} from '@angular/forms';
@@ -16,13 +16,16 @@ import {map} from 'rxjs/operators';
 export class FavoritesComponent implements OnInit {
 
   private favsCities: IFavCity[] = [];
-  favsCitiesCards: IWeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>[] = [];
+  @Input() favsCitiesCards: IWeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>[] = [];
   forecastWeather: IWeatherDayNight[] = [];
   showForecast: boolean = false;
   message: string;
   // showForecast: boolean = true;
 
-  constructor(private authService: AuthService, private weatherService: WeatherService, private favCitiesService: FavoriteCitiesService) {
+  constructor(private authService: AuthService,
+              private weatherService: WeatherService,
+              private favCitiesService: FavoriteCitiesService,
+              private ref: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -75,11 +78,14 @@ export class FavoritesComponent implements OnInit {
     this.showForecast = !this.showForecast;
   }
 
-  removeCity(city: IWeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>){
+  removeCity(city: IWeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>, item){
     const remCity = {
-    id: city.getCity().id,
-    name: city.getCity().name
-  }
+      id: city.getCity().id,
+      name: city.getCity().name
+    };
+    this.ref.detectChanges();
+    console.log(this.favsCitiesCards.splice(item, 1));
+
     this.favCitiesService.removeFavCity(remCity);
   }
 }
