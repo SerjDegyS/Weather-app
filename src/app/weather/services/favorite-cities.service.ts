@@ -14,21 +14,26 @@ export class FavoriteCitiesService implements OnInit {
 
   favCitiesCollection: AngularFirestoreCollection<any>;
   currUser: IUser;
+  ObsUserFavCities: Observable<IFavCity[] | []>;
   userFavCities: IFavCity[] = [];
 
   constructor(private afs: AngularFirestore, private auth: AuthService) {
     this.auth.user.subscribe(user => {
-      this.currUser = user;
-      this.getFavCities().subscribe( favCities => this.userFavCities = favCities);
-      //  set document fo user on firebase data\\
-      this.favCitiesCollection = this.afs.collection('userFavCities');
-    });
+      if (user) {
+        this.currUser = user;
+        this.ObsUserFavCities = this.getFavCities();
+        this.ObsUserFavCities.subscribe(favCities => this.userFavCities = favCities);
+        //  set document fo user on firebase data\\
+        this.favCitiesCollection = this.afs.collection('userFavCities');
+      }
+      });
   }
 
   ngOnInit(): void {
   }
 
-  getFavCities(): Observable<IFavCity[]> {
+  getFavCities(): Observable<IFavCity[] | []> {
+
     return this.afs.doc<IFavCity[]>(`userFavCities/${this.currUser.uid}`).valueChanges().pipe(map(favData => {
       return (favData) ? this.userFavCities = favData['favCities'] : [];
     }));

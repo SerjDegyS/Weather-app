@@ -11,6 +11,7 @@
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
+  margin: 20px;
   //align-items: center;
   //max-width: 900px;
 }
@@ -170,9 +171,8 @@
   padding-right: 17px
 }
 
-.widget-left-menu__header:before {
-  content: 'Weather for '
-}
+//
+
 
 .widget-left-menu--blue {
   background-image: -webkit-linear-gradient(bottom right,#ddf730,#f1f029);
@@ -290,6 +290,7 @@
   display: flex;
   justify-content: space-between;
   font-size: 11px;
+  margin: 10px;
 }
 
 .calendar {
@@ -315,8 +316,9 @@
   -webkit-align-items: baseline;
   -ms-flex-align: baseline;
   align-items: baseline;
-  width: 400px;
+  width: 421px;
   margin-top: 3px;
+  margin-right: 5px;
 }
 
 .calendar__item {
@@ -354,4 +356,10 @@
 
 .remove{
   font-size: 20px;
+}
+
+@media (max-width: 480px) {
+  .calendar{
+    width: 350px;
+  }
 }

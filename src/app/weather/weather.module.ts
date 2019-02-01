@@ -5,6 +5,7 @@ import {FavoritesModule} from './favorites/favorites.module';
 import {WeatherService} from './services/weather.service';
 import {FavoriteCitiesService} from './services/favorite-cities.service';
 import { WeatherDetailsComponent } from './weather-details/weather-details.component';
+import {AuthService} from '../core/auth.service';
 
 @NgModule({
   declarations: [WeatherDetailsComponent],
@@ -13,6 +14,6 @@ import { WeatherDetailsComponent } from './weather-details/weather-details.compo
     WeatherCardModule,
     FavoritesModule
   ],
-  providers: [WeatherService, FavoriteCitiesService]
+  providers: [WeatherService, FavoriteCitiesService, AuthService]
 })
 export class WeatherModule { }

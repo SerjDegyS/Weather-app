@@ -83,8 +83,9 @@ export class FavoritesComponent implements OnInit {
       id: city.getCity().id,
       name: city.getCity().name
     };
-    this.ref.detectChanges();
     console.log(this.favsCitiesCards.splice(item, 1));
+    this.ref.detectChanges();
+    this.favsCitiesCards = [];
 
     this.favCitiesService.removeFavCity(remCity);
   }

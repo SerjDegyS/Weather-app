@@ -1,6 +1,6 @@
 
-<button class="btn  btn btn-warning see-forecast_click" style="width: 100%; height: 40px" (click)="showForecast()" >
-  <p>TAP TO SEE FORECAST <span class="glyphicon glyphicon-chevron-down"></span></p>
+<button class="btn  btn btn-warning see-forecast__click" (click)="showForecast()" >
+  <div class="tap-to-see">TAP TO SEE FORECAST </div><span [ngClass]="(isShowedForecast) ? 'glyphicon glyphicon-chevron-up' : 'glyphicon glyphicon-chevron-down'"></span>
 </button>
 
 <div class="favorite-forecast__container" *ngIf="isShowedForecast">

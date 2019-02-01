@@ -11,7 +11,7 @@
   <div class="weather-card__item" (click)="showforcast = !showforcast">
     <div class="weather-card__city">
         <span>Weather for </span><br>
-      {{weatherCardCity.getCity().name}}, {{weatherCardCity.getCity().country}}
+      <p style="text-align: center">{{weatherCardCity.getCity().name}}, {{weatherCardCity.getCity().country}}</p>
     </div>
 
     <div class="weather-card__condition-icon-container">
@@ -33,10 +33,8 @@
       <div>Sunset <span>{{currentWeather.sunset | date:'HH:mm'}}</span></div>
     </div>
 
-    <div class="btn btn-outline-success btn-add" (click)="addCityToFav(weatherCardCity)">
-      <span class="glyphicon glyphicon-remove-circle add"></span>
-      <br>
-      <span>TAP TO ADD</span>
+    <div *ngIf="isAlreadyAdd(weatherCardCity) then alreadyAdd else notAdd" >
+
     </div>
 
     <div class="weather-card__item-data">
@@ -44,6 +42,22 @@
     </div>
 
   </div>
+
+  <ng-template #notAdd>
+    <div class="btn btn-outline-primary btn-add" (click)="addCityToFav(weatherCardCity)">
+      <span class="glyphicon glyphicon-plus-sign add"></span>
+      <br>
+      <span>TAP TO ADD</span>
+    </div>
+  </ng-template>
+
+  <ng-template #alreadyAdd>
+    <div class="btn btn-outline-success btn-add">
+      <span class="glyphicon glyphicon-ok-sign add"></span>
+      <br>
+      <span>ADDED</span>
+    </div>
+  </ng-template>
 
   <!--<div class="forecast-weather" *ngIf="dailyForecast">-->
       <!--<div class="forecast-weather__container">-->

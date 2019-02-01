@@ -5,9 +5,10 @@ import {IWeatherItemCurrent, IWeatherItemForecast} from '../model/IWeather-item.
 
 import {WeatherService} from '../services/weather.service';
 import {IWeatherCardCity, IWeatherDayNight} from '../model/IWeatherCity.interface';
-import {IUser} from '../../core/user.model';
+import {IFavCity, IUser} from '../../core/user.model';
 import {AuthService} from '../../core/auth.service';
 import {FavoriteCitiesService} from '../services/favorite-cities.service';
+import {el} from '@angular/platform-browser/testing/src/browser_util';
 
 @Component({
   selector: 'app-weather-card',
@@ -19,7 +20,7 @@ export class WeatherCardComponent implements OnInit {
 
   weatherCardCity: IWeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>;
   currentWeather: IWeatherItemCurrent;
-  user: IUser;
+  favoriteCities: IFavCity[] = [];
   showforcast: boolean = false;
   @Output() dailyForecast: IWeatherItemForecast[];
   city: string = 'kiev';
@@ -29,7 +30,8 @@ export class WeatherCardComponent implements OnInit {
   };
 
 
-  constructor(private weatherHttp: WeatherService, private userService: AuthService, private favCitiesService: FavoriteCitiesService) {
+  constructor(private weatherHttp: WeatherService, private favoriteCitiesService: FavoriteCitiesService,
+              private favCitiesService: FavoriteCitiesService, private authService: AuthService ) {
   }
 
   ngOnInit(): void {
@@ -54,17 +56,27 @@ export class WeatherCardComponent implements OnInit {
             this.currentWeather = this.weatherCardCity.getCurrentWeather();
           })
         }
-      )}else {
+      )} else {
         this.weatherHttp.getCurrentWeatherCardByCity(this.city).subscribe(data => {
           this.weatherCardCity = data;
           this.currentWeather = this.weatherCardCity.getCurrentWeather();
-      })
+      });
     }
 
-    this.userService.user.subscribe(user => {
-      this.user = user
-      console.log(this.user);
-    });
+    console.log('Get user favorite cities');
+    this.authService.user.subscribe(user => {
+      if(user) {
+        this.favCitiesService.getFavCities().subscribe(favCitiesData => {
+          console.log(favCitiesData);
+          this.favoriteCities = favCitiesData;
+        })
+      }
+    })
+
+    // this.userService.user.subscribe(user => {
+    //   this.user = user
+    //   console.log(this.user);
+    // });
   }
 
   public searchCityWeatherCard(){
@@ -81,11 +93,17 @@ export class WeatherCardComponent implements OnInit {
     this.dailyForecast = evnt;
     }
 
+
   public addCityToFav(city: IWeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>){
     const newFavCity = {
       id: city.getCity().id,
       name: city.getCity().name
     }
     this.favCitiesService.addFavCities(newFavCity);
+  }
+
+  isAlreadyAdd(city: IWeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>): boolean {
+    console.log(!(this.favoriteCities.filter(favCity => city.getCity().id === favCity.id).length === 0));
+    return !(this.favoriteCities.filter(favCity => city.getCity().id === favCity.id).length === 0);
   }
 }

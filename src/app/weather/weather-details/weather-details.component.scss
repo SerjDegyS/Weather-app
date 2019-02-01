@@ -7,7 +7,7 @@
   margin: 20px;
   padding: 5px;
   //width: 70%;
-  height: 20em;
+  //height: 20em;
   font-family: Roboto,Arial,sans-serif;
   font-size: 16px;
   font-weight: 600;
@@ -28,7 +28,7 @@
 .forecast-weather__container{
   display: flex;
   position: relative;
-  justify-content: center;
+  //justify-content: center;
   align-items: center;
   justify-content: space-between;
   //width: 100%;
@@ -124,8 +124,27 @@
   display: none;
 }
 
+@media (max-width: 480px) {
 
-.show{
-  //display: flex;
+  .calendBlock{
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    align-items: center;
+  }
+
+  .infoDate{
+    margin: 0 5px 10px 5px;
+  }
+
+
+
+  .forecast-weather__container{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    //justify-content: space-between;
+  }
 }
-
