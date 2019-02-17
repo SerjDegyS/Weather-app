@@ -43,7 +43,7 @@
               <!--<div class="calendar__item__container" >-->
                 {{((dailyForecast.day.getDay() === cityCard.getCurrentWeather().date.getDay())? "Today, " + dailyForecast.day.toDateString().slice(0,4) : dailyForecast.day.toDateString().slice(0,3))}}
                 <br>{{dailyForecast.day | date: 'dd MMM'}}<br>
-                <img src="https://openweathermap.org/img/w/{{dailyForecast.icon}}" width="45" height="45" alt="Today">
+                <img src="https://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/{{dailyForecast.icon}}" width="45" height="45" alt="Today">
 
                 <div class="min-max__container">
 

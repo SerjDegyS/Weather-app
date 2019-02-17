@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/core/auth.service';
 import { IFavCity } from 'src/app/core/user.model';
 import {FavoriteCitiesService} from '../services/favorite-cities.service';
 import {map} from 'rxjs/operators';
+import { NotifyService } from 'src/app/core/notify.service';
 
 @Component({
   selector: 'app-favorites',
@@ -19,18 +20,20 @@ export class FavoritesComponent implements OnInit {
   @Input() favsCitiesCards: IWeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>[] = [];
   forecastWeather: IWeatherDayNight[] = [];
   showForecast: boolean = false;
-  message: string;
+  // message: string;
   // showForecast: boolean = true;
 
   constructor(private authService: AuthService,
               private weatherService: WeatherService,
               private favCitiesService: FavoriteCitiesService,
-              private ref: ChangeDetectorRef) {
+              private ref: ChangeDetectorRef,
+              private notify: NotifyService) {
   }
 
   ngOnInit() {
     /*Get user favorite cities*/
     console.log('Get user favorite cities');
+    this.notify.update('SEARCH YOU FAVORITE CITY...', 'info');
       this.authService.user.subscribe(user => {
         if(user) {
           this.favCitiesService.getFavCities().subscribe(favCitiesData => {
@@ -48,7 +51,9 @@ export class FavoritesComponent implements OnInit {
 
   private getWeatherForFavCities(): IWeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>[] {
     if(this.favsCities.length !== 0) {
-      this.message = 'YOU FAVORITE CITIES';
+      this.notify.update('YOU FAVORITE CITIES', 'info');
+      console.log('favcity');
+      
       let favsCitiesString = this.favsCities.reduce((listId, city) => listId + city.id + ',', '');
       this.weatherService.getCurrentWeatherByCitesGroup(favsCitiesString.slice(0, -1))
       /*Get forecast weather for cities*/
@@ -59,7 +64,7 @@ export class FavoritesComponent implements OnInit {
               .map(obsFullCityCard => obsFullCityCard.subscribe(fullCityCard => this.favsCitiesCards.push(fullCityCard))
               ))).subscribe();
     } else {
-      this.message = 'YOU DON\'T HAVE FAVORITE CITIES YET'
+      this.notify.update('YOU DON\'T HAVE FAVORITE CITIES YET', 'info');
       return this.favsCitiesCards = [];
     }
   }

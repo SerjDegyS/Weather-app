@@ -1,6 +1,4 @@
-<p>
-  WEATHER CARD
-</p>
+
 
 <div class="search-city row columns">
   FIND YOUR CITY   <input class="search-city__input" type="text" [(ngModel)]="city" (keyup.enter)="searchCityWeatherCard()">
@@ -8,37 +6,53 @@
 
 <section class="weather-container" [ngSwitch]="true" *ngIf="currentWeather" >
 
-  <div class="weather-card__item" (click)="showforcast = !showforcast">
-    <div class="weather-card__city">
+  <div class="weather-card__item">
+      <div class="weather-card__city">
         <span>Weather for </span><br>
-      <p style="text-align: center">{{weatherCardCity.getCity().name}}, {{weatherCardCity.getCity().country}}</p>
-    </div>
-
-    <div class="weather-card__condition-icon-container">
-      <div class="weather-card__condition-icon">
-        <img src="https://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/{{currentWeather.icon}}" alt="Condition icon">
+        <p class="weather-card_city-name">{{weatherCardCity.getCity().name}}, {{weatherCardCity.getCity().country}}</p>
       </div>
-      <div class="weather-card__temp">
-        <span class="weather-card__temp-value" >{{currentWeather.temp}}</span>
-        <span class="weather-card__temp-unit">°{{(weatherCardCity.getTempUnit() === 'metric') ? 'C' : 'F'}}</span>
+
+    <div class="weather-card_container">
+      <div class="weather-card__condition-icon-container">
+        
+          <img src="https://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/{{currentWeather.icon}}" alt="Condition icon">
+        
+      </div>
+
+      <div class="weather-card__temp-condition">
+        <div class="weather-card__temp">
+          <span class="weather-card__temp-value" >{{currentWeather.temp}}</span>
+          <span class="weather-card__temp-unit">°{{(weatherCardCity.getTempUnit() === 'metric') ? 'C' : 'F'}}</span>
+        </div>
+      
+        <div class="weather-card__condition"><p>{{currentWeather.description}}</p></div>
+      </div>
+
+      <div class="weather-card__wind">
+        <div class="weather-card__wind-rotation">
+          <img class="wind" [ngStyle]="{'transform':'rotate('+weatherCardCity.getCurrentWeather().windDeg+'deg)'}" src="https://ssl.gstatic.com/m/images/weather/wind_unselected.svg" alt="{{weatherCardCity.getCurrentWeather().windDeg}}°" style="" aria-hidden="true" data-atf="0">
+        </div>
+        <div class="weather-card__wind-speed">
+            <p >wind: {{weatherCardCity.getCurrentWeather().windSpeed}} m/s </p>
+          </div>
+      </div>
+
+      <div class="weather-card_infoDaylight">
+        <div>pressure <span>{{currentWeather.pressure}} hPa</span></div>
+        <div>humidity <span>{{currentWeather.humidity}} %</span></div>
+        <div>sunrise <span>{{currentWeather.sunrise | date:'HH:mm'}}</span></div>
+        <div>sunset <span>{{currentWeather.sunset | date:'HH:mm'}}</span></div>
+      </div>
+
+      <div class="weather-card__item-data">
+        <span>Now, {{currentWeather.date.toDateString().slice(0, 3)}} <br> <span>{{currentWeather.date.toDateString().slice(4)}}</span></span>
       </div>
     </div>
 
-    <div class="weather-card__condition"><p>{{currentWeather.description}}</p></div>
-    <div class="btn btn-outline-warning">
-      <span class="tap btn btn-outline-primary">TAP TO SEE FORECAST</span>
-    </div>
-    <div class="infoDaylight">
-      <div>Sunrise <span>{{currentWeather.sunrise | date:'HH:mm'}}</span></div>
-      <div>Sunset <span>{{currentWeather.sunset | date:'HH:mm'}}</span></div>
-    </div>
+    <div *ngIf="isAlreadyAdd(weatherCardCity) then alreadyAdd else notAdd" ></div>
 
-    <div *ngIf="isAlreadyAdd(weatherCardCity) then alreadyAdd else notAdd" >
-
-    </div>
-
-    <div class="weather-card__item-data">
-      <span>Now, {{currentWeather.date.toDateString()}}</span>
+    <div class="btn btn-outline-warning btn-show-forecast" (click)="showforcast = !showforcast">
+      <span class="tap btn btn-outline-primary ">TAP TO SEE FORECAST</span>
     </div>
 
   </div>
@@ -161,5 +175,5 @@
 
             <app-weather-details *ngIf="showforcast" [isShowBackgroundImage]="true" [dailyForecast]="dailyForecast"></app-weather-details>
 
-</section>
 <app-forcast-weather-card *ngIf="showforcast" [weatherCardCity] = "weatherCardCity" (dailyForecast)="receiveDailyForecastFromChild($event)"></app-forcast-weather-card>
+</section>

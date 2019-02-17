@@ -64,8 +64,9 @@
 
 
 .widget-left--blue {
-  background-image: -webkit-linear-gradient(bottom,#5fd6d6,#a1e6e6);
-  background-image: linear-gradient(to top,#5fd6d6,#a1e6e6)
+  // background-image: -webkit-linear-gradient(bottom,#5fd6d6,#a1e6e6);
+  // background-image: linear-gradient(to top,#5fd6d6,#a1e6e6)
+  background: linear-gradient(110deg, #fdcd3b 60%, #ffed4b 60%);
 }
 
 .widget-left-menu {

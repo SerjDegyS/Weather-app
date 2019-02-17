@@ -6,6 +6,8 @@ import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestor
 import {Router} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
 import {auth} from 'firebase';
+import { NotifyService } from './notify.service';
+
 
 
 
@@ -16,7 +18,8 @@ export class AuthService {
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
-    private router: Router
+    private router: Router,
+    private notify: NotifyService
   ) {
     this.user = this.afAuth.authState.pipe(
       switchMap(user => {
@@ -88,6 +91,7 @@ export class AuthService {
       .signInWithPopup(provider)
       .then(credential => {
         console.log('Welcome to WeatherByDegys!!!');
+        this.notify.update('Welcome to WeatherByDegys!!!', 'success');
         return this.updateUserData(credential.user);
       })
       .catch(error => this.handleError(error));
@@ -114,6 +118,7 @@ export class AuthService {
 
   private handleError(err: Error){
     console.log(err);
+    this.notify.update(err.message, 'error');
   }
 
   private updateUserData(user: IUser) {

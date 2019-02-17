@@ -4,6 +4,7 @@ import {IFavCity, IUser} from '../../core/user.model';
 import {map} from 'rxjs/operators';
 import {AuthService} from '../../core/auth.service';
 import {Observable} from 'rxjs';
+import { NotifyService } from 'src/app/core/notify.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class FavoriteCitiesService implements OnInit {
   ObsUserFavCities: Observable<IFavCity[] | []>;
   userFavCities: IFavCity[] = [];
 
-  constructor(private afs: AngularFirestore, private auth: AuthService) {
+  constructor(private afs: AngularFirestore, private auth: AuthService, private notify: NotifyService) {
     this.auth.user.subscribe(user => {
       if (user) {
         this.currUser = user;
@@ -39,8 +40,13 @@ export class FavoriteCitiesService implements OnInit {
     }));
   }
 
-  addFavCities(newFavCity: IFavCity) {
-    this.afs.doc<any>(`userFavCities/${this.currUser.uid}`).set({favCities: this.userFavCities.concat(newFavCity)});
+  addFavCities(newFavCity: IFavCity): boolean {
+    let rez = false;
+    this.afs.doc<any>(`userFavCities/${this.currUser.uid}`).set({favCities: this.userFavCities.concat(newFavCity)})
+    .then(() => {
+      this.notify.update('CITY SUCCESSFULLY ADDED', 'success');
+    })
+    return rez;
   }
 
 

@@ -8,6 +8,7 @@ import {IWeatherItemCurrent, IWeatherItemForecast} from '../model/IWeather-item.
 import {nextContext} from '@angular/core/src/render3';
 import {IWeatherCardCity, IWeatherDayNight} from '../model/IWeatherCity.interface';
 import {UrlsConst} from './urls.const';
+import { error } from 'util';
 
 
 @Injectable({
@@ -62,7 +63,11 @@ export class WeatherService {
       ).subscribe(data => {
         cityCard.forecast = data;
         obs.next(cityCard);
-      }))
+      }, error => {
+        
+      }
+      
+      ))
   }
 
   private weatherCardBuild(obs: Observable<any>): Observable<IWeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>> {
@@ -82,8 +87,8 @@ export class WeatherService {
         temp: Math.round(data['main'].temp),
         tempMin: Math.round(data['main'].temp_min),
         tempMax: Math.round(data['main'].temp_max),
-        humidity: +data['main'].hummidity,
-        pressure: +data['main'].pressure,
+        humidity: Math.round(data['main'].humidity),
+        pressure: Math.round(data['main'].pressure),
         windSpeed: +data['wind'].speed,
         sunrise: new Date(data['sys'].sunrise * 1000),
         sunset: new Date(data['sys'].sunset * 1000),

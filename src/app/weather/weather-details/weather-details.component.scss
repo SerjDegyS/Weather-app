@@ -1,12 +1,12 @@
 
 // forecast weather
-.forecast-weather{
+.weather-details{
   display: flex;
   justify-content: center;
   position: relative;
-  margin: 20px;
+  // margin: 20px;
   padding: 5px;
-  //width: 70%;
+  width: 100%;
   //height: 20em;
   font-family: Roboto,Arial,sans-serif;
   font-size: 16px;
@@ -17,6 +17,7 @@
   border-radius: 6px;
   box-shadow: 10px -2px 20px 2px rgba(0,0,0,.3);
   border-bottom: 2px solid #ff4f98;
+  background: linear-gradient(110deg, #fdcd3b 60%, #ffed4b 60%);
 }
 
 .background_image__inherit{

@@ -9,6 +9,8 @@ import {IFavCity, IUser} from '../../core/user.model';
 import {AuthService} from '../../core/auth.service';
 import {FavoriteCitiesService} from '../services/favorite-cities.service';
 import {el} from '@angular/platform-browser/testing/src/browser_util';
+import { NotifyService } from 'src/app/core/notify.service';
+import { error } from 'util';
 
 @Component({
   selector: 'app-weather-card',
@@ -30,12 +32,16 @@ export class WeatherCardComponent implements OnInit {
   };
 
 
-  constructor(private weatherHttp: WeatherService, private favoriteCitiesService: FavoriteCitiesService,
-              private favCitiesService: FavoriteCitiesService, private authService: AuthService ) {
+  constructor(private weatherHttp: WeatherService, 
+              // private favoriteCitiesService: FavoriteCitiesService,
+              private favCitiesService: FavoriteCitiesService, 
+              private authService: AuthService,
+              private notify: NotifyService ) {
   }
 
   ngOnInit(): void {
     if(navigator.geolocation) {
+      this.notify.update('SEARCH YOU CURRENT POSITION...', 'info');
       navigator.geolocation.getCurrentPosition(position => {
           this.currentPosition = {
             lat: position.coords.latitude,
@@ -50,7 +56,8 @@ export class WeatherCardComponent implements OnInit {
           });
         },
         error => {
-          alert(error.message + '. Please turn on you geolocation!');
+          // alert(error.message + '. Please turn on you geolocation!');
+          this.notify.update('PLEASE TURN GEOLOCATION !!!', 'error');
           this.weatherHttp.getCurrentWeatherCardByCity(this.city).subscribe(data => {
             this.weatherCardCity = data;
             this.currentWeather = this.weatherCardCity.getCurrentWeather();
@@ -86,8 +93,12 @@ export class WeatherCardComponent implements OnInit {
       this.weatherCardCity = data;
       this.currentWeather = this.weatherCardCity.getCurrentWeather();
       console.log(this.weatherCardCity);
-    })
+      this.notify.update('CITY FOUND', 'success');
+    }, error => {
+      (error.status == '404') ? this.notify.update('CITY NOT FOUND! CHECK AND TRY AGAIN', 'error') : this.notify.update('SERVSER  OR NETWORK ERROR! TRY AGAIN', 'error')
+    });
   }
+    
 
   public receiveDailyForecastFromChild(evnt){
     this.dailyForecast = evnt;
@@ -103,7 +114,7 @@ export class WeatherCardComponent implements OnInit {
   }
 
   isAlreadyAdd(city: IWeatherCardCity<IWeatherItemCurrent, IWeatherItemForecast>): boolean {
-    console.log(!(this.favoriteCities.filter(favCity => city.getCity().id === favCity.id).length === 0));
+    // console.log(!(this.favoriteCities.filter(favCity => city.getCity().id === favCity.id).length === 0));
     return !(this.favoriteCities.filter(favCity => city.getCity().id === favCity.id).length === 0);
   }
 }
